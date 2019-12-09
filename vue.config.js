@@ -6,18 +6,20 @@ module.exports = {
     port: 8082
   },
   productionSourceMap: false,
-  configureWebpack: {
-    plugins: [
-      new CompressionPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.(js|css|html|svg)$/,
-        threshold: 10240,
-        minRatio: 0.8
-      })
-    ],
-    externals: {
-      'echarts': 'echarts'
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'prod') {
+      config.plugins.push(
+        new CompressionPlugin({
+          filename: '[path].gz[query]',
+          algorithm: 'gzip',
+          test: /\.(js|css|html|svg)$/,
+          threshold: 10240,
+          minRatio: 0.8
+        })
+      )
+      config['externals'] = { 'echarts': 'echarts' }
+    } else {
+      config['externals'] = { 'echarts': 'echarts' }
     }
   }
 }

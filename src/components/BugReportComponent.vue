@@ -1,65 +1,47 @@
 <template>
   <div class="bugreport-body">
-    <el-dialog
-      title="BUG反馈"
-      width="40%"
-      :visible.sync="visiable"
-      v-loading = "loading"
-      @closed="closeDialog"
-    >
-      <el-form
-        :model="form"
-        :label-width="formLabelWidth"
-        :rules="rules"
-        ref="form"
-      >
+    <el-dialog title="BUG反馈"
+               width="40%"
+               :visible.sync="visiable"
+               v-loading="loading"
+               @closed="closeDialog">
+      <el-form :model="form"
+               :label-width="formLabelWidth"
+               :rules="rules"
+               ref="form">
         <!-- <el-form-item label="反馈用户：">
           <el-input
             v-model="form.username"
             disabled
           ></el-input>
         </el-form-item> -->
-        <el-form-item
-          label="BUG类型："
-          prop="type"
-        >
-          <el-select
-            v-model="form.type"
-            placeholder="请选择BUG类型"
-          >
-            <el-option
-              v-for="item in bugType"
-              :key="item.value"
-              :value="item.value"
-              :label="item.label"
-            ></el-option>
+        <el-form-item label="BUG类型："
+                      prop="type">
+          <el-select v-model="form.type"
+                     placeholder="请选择BUG类型">
+            <el-option v-for="item in bugType"
+                       :key="item.value"
+                       :value="item.value"
+                       :label="item.label"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item
-          label="标题："
-          prop="title"
-        >
-          <el-input
-            v-model="form.title"
-            placeholder="给你遇到的BUG起个标题吧（在哪个界面遇到了哪些问题）"
-          ></el-input>
+        <el-form-item label="标题："
+                      prop="title">
+          <el-input v-model="form.title"
+                    placeholder="给你遇到的BUG起个标题吧（在哪个界面遇到了哪些问题）"></el-input>
         </el-form-item>
         <el-form-item label="BUG描述：">
-          <el-input
-            type="textarea"
-            :rows="4"
-            placeholder="请详细描述BUG信息，以便开发者更好定位问题！"
-            v-model="form.text"
-          >
+          <el-input type="textarea"
+                    :rows="4"
+                    placeholder="请详细描述BUG信息，以便开发者更好定位问题！"
+                    v-model="form.text">
           </el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">
         <el-button @click="closeDialog">取 消</el-button>
-        <el-button
-          type="primary"
-          @click="onSubmit('form')"
-        >提交BUG反馈</el-button>
+        <el-button type="primary"
+                   @click="onSubmit('form')">提交BUG反馈</el-button>
       </div>
     </el-dialog>
   </div>

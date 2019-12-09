@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-const config = require('../../config/oj.config.json')
+// const config = require('../../config/oj.config.json')
 const store = require('../store/index')
 
-axios.defaults.baseURL = config.apiUrl
+axios.defaults.baseURL = process.env.VUE_APP_APIURL
 axios.defaults.timeout = 5000
 axios.interceptors.response.use(
   res => {
