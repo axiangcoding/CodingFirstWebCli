@@ -174,9 +174,9 @@ const routes = [
     }
   },
   {
-    path: '/ClockIn',
-    name: 'ClockIn',
-    component: () => import('@/views/ClockIn'),
+    path: '/CheckIn',
+    name: 'CheckIn',
+    component: () => import('@/views/CheckIn'),
     meta: {
       keepAlive: false
     }
@@ -216,7 +216,7 @@ const routes = [
   {
     path: '/Test',
     name: 'Test',
-    component: () => import('@/views/Register_des'),
+    // component: () => import('@/views/Register_des'),
     meta: {
       keepAlive: false
     }

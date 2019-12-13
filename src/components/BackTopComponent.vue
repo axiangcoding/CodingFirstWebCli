@@ -4,14 +4,24 @@
          :style="customStyle"
          class="back-to-ceiling"
          @click="backToTop">
-      <el-image :src="require('../assets/image/icon/back_top.png')" />
+      <svg t="1575892680683"
+           class="icon"
+           viewBox="0 0 1024 1024"
+           version="1.1"
+           xmlns="http://www.w3.org/2000/svg"
+           p-id="1507"
+           width="25"
+           height="25">
+        <path d="M512 0c-282.819048 0-512 229.180952-512 512s229.180952 512 512 512 512-229.180952 512-512C1024 229.180952 794.819048 0 512 0zM726.552381 533.942857l-192.609524-192.609524 0 436.419048-46.32381 0L487.619048 343.771429l-190.171429 190.171429-34.133333-34.133333 214.552381-214.552381 0 0 34.133333-34.133333 0 0 0 0 34.133333 34.133333 0 0 214.552381 214.552381L726.552381 533.942857z"
+              p-id="1508"
+              fill="#1296db"></path>
+      </svg>
     </div>
   </transition>
 </template>
 
 <script>
 export default {
-  name: 'BackToTop',
   props: {
     visibilityHeight: {
       type: Number,
@@ -44,6 +54,7 @@ export default {
       visible: false,
       interval: null,
       isMoving: false
+      // picUrl: require('../assets/image/icon/back_top.png')
     }
   },
   mounted () {
@@ -91,17 +102,17 @@ export default {
   text-align: center;
   cursor: pointer;
 }
-.back-to-ceiling:hover {
-  background: #d5dbe7;
-}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
+
 .back-to-ceiling .Icon {
   fill: #9aaabf;
   background: none;

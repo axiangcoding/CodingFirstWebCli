@@ -8,18 +8,19 @@
     </el-card>
     <el-card class="box-card">
       <div slot="header">
-        个性化
+        题目推荐
       </div>
       <div v-if="this.$store.getters.getIsLogin && loaded">
-        <span class="info-font">亲爱的 {{this.$store.getters.getUsername}}，根据我们的预测，您可能会对以下题目感兴趣，要不要试试？</span>
+        <span class="info-font">亲爱的 {{this.$store.getters.getUsername}}，根据智能教练敢敢的预测，您可能会对以下题目感兴趣，要不要试试？</span>
         <br />
-        <el-link type="primary"
-                 @click="toSubmit(recommendProblems[0].pid)">#{{recommendProblems[0].pid}} {{recommendProblems[0].title}} </el-link><br />
-        <el-link type="primary"
-                 @click="toSubmit(recommendProblems[1].pid)">#{{recommendProblems[1].pid}} {{recommendProblems[1].title}} </el-link><br />
-        <el-link type="primary"
-                 @click="toSubmit(recommendProblems[2].pid)">#{{recommendProblems[2].pid}} {{recommendProblems[2].title}} </el-link><br />
-        <el-link class="info-font"
+        <div v-for="item in recommendProblems"
+             :key="item">
+          <el-link type="primary"
+                   @click="toSubmit(item.problemId)">#{{item.problemId}} {{item.title}}</el-link> <br />
+        </div>
+
+        <el-link type="danger"
+                 class="info-font"
                  @click="getRecommendProblems()">
           <el-icon class="el-icon-refresh"></el-icon>不喜欢？点我换一波
         </el-link>
@@ -28,8 +29,12 @@
     </el-card>
     <el-card class="box-card">
       <div slot="header">
+        热门题解
+      </div>
+    </el-card>
+    <el-card class="box-card">
+      <div slot="header">
         本站大数据</div>
-      <!-- <el-select size="mini"></el-select> -->
       <div id="submit-charts"></div>
     </el-card>
     <el-card class="box-card">
@@ -113,7 +118,7 @@ export default {
   },
   mounted () {
     this.getInfo()
-    // this.getRecommendProblems()
+    this.getRecommendProblems()
     this.getStatusCount()
     this.initEcharts()
   },
@@ -132,13 +137,13 @@ export default {
         this.message = '【公告获取失败】'
       }
     },
-    // async getRecommendProblems () {
-    //   let params = new URLSearchParams()
-    //   params.append('username', this.$store.getters.getUsername)
-    //   let dataRecommend = await this.$http.get('/problem/getRecommendProblems', params)
-    //   this.recommendProblems = dataRecommend.datas[0]
-    //   this.loaded = true
-    // },
+    async getRecommendProblems () {
+      let params = new URLSearchParams()
+      params.append('username', this.$store.getters.getUsername)
+      let dataRecommend = await this.$http.get('/problem/recommend/get', params)
+      this.recommendProblems = dataRecommend.datas[0]
+      this.loaded = true
+    },
     async getStatusCount () {
       let params = new URLSearchParams()
       params.append('days', this.days)
@@ -233,6 +238,6 @@ export default {
 
 .info-font {
   font-size: 16px;
-  line-height: 28px;
+  line-height: 35px;
 }
 </style>

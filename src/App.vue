@@ -20,7 +20,6 @@
             <!-- 这里是会被缓存的视图组件，比如 Home！ -->
           </router-view>
         </transition>
-
       </el-main>
       <el-footer height="90px">
         <Foot></Foot>
@@ -39,7 +38,6 @@ import Robot from '@/components/RobotComponent'
 import BackTop from './components/BackTopComponent'
 
 export default {
-  name: 'App',
   components: {
     Head,
     Foot,
@@ -73,15 +71,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  width: 100%;
-  height: 100%;
 }
 
 .el-header {
@@ -89,7 +85,6 @@ export default {
 }
 
 .el-main {
-  height: 100%;
 }
 
 .el-footer {

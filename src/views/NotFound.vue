@@ -22,52 +22,6 @@
     </div>
     <BugReport :dialogVisible="showBugReport"
                @visiable="changeVisiable"></BugReport>
-
-               <div class="left-body">
-      <el-image class="notfound-pic"
-                :src="url"></el-image>
-      <span class="info-font">访问的界面不存在，要不<el-link type="primary"
-                 style="font-size:18px;"
-                 @click="reload"
-                 :underline="false">刷新</el-link>试试？</span>
-      <br />
-      <span class="info-font">如果你觉得这是系统BUG,请 <el-link type="primary"
-                 style="font-size:18px;"
-                 @click="goReportBug"
-                 :underline="false">反馈BUG</el-link></span>
-      <span class="info-font">说不定只是开发组人手不够，这个页面还没开发 ：）,请 <el-link type="primary"
-                 style="font-size:18px;"
-                 @click="goJoin"
-                 :underline="false">加入我们</el-link></span>
-    </div>
-    <div class="right-body">
-
-    </div>
-    <BugReport :dialogVisible="showBugReport"
-               @visiable="changeVisiable"></BugReport>
-
-               <div class="left-body">
-      <el-image class="notfound-pic"
-                :src="url"></el-image>
-      <span class="info-font">访问的界面不存在，要不<el-link type="primary"
-                 style="font-size:18px;"
-                 @click="reload"
-                 :underline="false">刷新</el-link>试试？</span>
-      <br />
-      <span class="info-font">如果你觉得这是系统BUG,请 <el-link type="primary"
-                 style="font-size:18px;"
-                 @click="goReportBug"
-                 :underline="false">反馈BUG</el-link></span>
-      <span class="info-font">说不定只是开发组人手不够，这个页面还没开发 ：）,请 <el-link type="primary"
-                 style="font-size:18px;"
-                 @click="goJoin"
-                 :underline="false">加入我们</el-link></span>
-    </div>
-    <div class="right-body">
-
-    </div>
-    <BugReport :dialogVisible="showBugReport"
-               @visiable="changeVisiable"></BugReport>
   </div>
 </template>
 

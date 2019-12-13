@@ -1,54 +1,87 @@
 <template>
   <div>
-    <div class="customerservice-body">
-      <el-popover class="item"
-                  :content="message"
-                  width="200"
-                  trigger="manual"
-                  placement="right-start"
-                  v-model="visiable">
-        <el-image slot="reference"
-                  ref="img"
+    <div v-if="!this.shutdown">
+      <div class="customerservice-body">
+        <el-popover :content="message"
+                    width="200"
+                    trigger="manual"
+                    placement="right-start"
+                    v-model="visiable">
+          <!--FIXME: 原则上推荐使用element的组件而不用原生的内容，但是element的el-image组件在vue-cli4搭建的环境下会有bug
+          BUG现象：图片上加上@click后，点击完图片会导致滚动条消失
+          BUG原因：可能是element的el-image组件的渲染问题，或者是require('picUrl')这种写法引用图片的写法问题
+            -->
+          <!-- <el-image slot="reference"
                   class="service-img"
-                  :src="urlService"
-                  @click="openDialog()"></el-image>
-        <el-button v-if="isTalking"
-                   type="warning"
-                   slot="reference"
-                   size="mini"
-                   @click="this.stopTalking">“开始唠叨吧”</el-button>
-        <el-button v-else
-                   type="warning"
-                   slot="reference"
-                   size="mini"
-                   @click="this.startTalking">“我生气了”</el-button>
-      </el-popover>
-    </div>
-    <el-dialog title="智能教练敢敢"
-               width="60%"
-               :visible.sync="dialogVisiable">
-      <iframe id="content"
+                  :src="urlService">
+          <div slot="error"
+               class="image-slot"
+               @click="openDialog()">
+            <i class="el-icon-picture-outline">加载失败</i>
+          </div>
+        </el-image> -->
+          <img class="service-img"
+               slot="reference"
+               :src="urlService"
+               @click="openDialog()" />
+          <el-button v-if="isTalking"
+                     type="warning"
+                     slot="reference"
+                     size="mini"
+                     @click="this.stopTalking">别跳了，给👴爪巴</el-button>
+          <el-button v-else
+                     type="warning"
+                     slot="reference"
+                     size="mini"
+                     @click="this.startTalking">“我生气了”</el-button>
+        </el-popover>
+      </div>
+      <el-dialog title="智能教练敢敢"
+                 width="60%"
+                 :visible.sync="dialogVisible"
+                 top="5vh">
+        <!-- <iframe id="content"
               :src="this.src"
               width="100%"
-              height="800px"
+              height="400px"
               frameborder="0"
               name="智能客服"
               scrolling="yes">
-      </iframe>
-    </el-dialog>
+      </iframe> -->
+        <h1>没钱没时间开发，敢敢裂开了 :(<br />
+          氪金才能使我变聪明！
+        </h1>
+      </el-dialog>
+    </div>
+    <div v-else>
+      <el-tooltip class="item"
+                  effect="dark"
+                  content="呼叫敢敢"
+                  placement="top">
+        <el-button type="primary"
+                   size="mini"
+                   icon="el-icon-chat-dot-round"
+                   class="fixed-button"
+                   @click="bringBack()"
+                   circle></el-button>
+      </el-tooltip>
+    </div>
   </div>
+
 </template>
 
 <script>
 export default {
   data () {
     return {
+      shutdown: false,
       isTalking: true,
       visiable: false,
-      dialogVisiable: false,
+      dialogVisible: false,
       time: '',
       src: '',
-      urlService: require('../assets/image/icon/robot.gif'),
+      // urlService: require('../assets/image/icon/robot.gif'),
+      urlService: 'https://i.loli.net/2019/12/13/TnkKVyBZjA8aLc7.gif',
       message: '我是假机器人，我叫敢敢',
       commonMessage: [
         '听说包工头是个憨憨，所以给我起名叫敢敢',
@@ -73,22 +106,22 @@ export default {
     this.time = setInterval(function () { _this.changeMessage() }, 6000)
   },
   methods: {
-    backTop () {
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
+    bringBack () {
+      this.shutdown = false
+      this.startTalking()
     },
     openDialog () {
-      this.dialogVisiable = true
-      let name = this.$route.name
-      if (name === 'Home') {
-        this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22home%22&mode=kefu&res=fwh5_desktop'
-      } else if (name === 'Contest' || name === 'ContestInfo') {
-        this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22rangegame%22&mode=kefu&res=fwh5_desktop'
-      } else if (name === 'Problem') {
-        this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22subject%22&mode=kefu&res=fwh5_desktop'
-      }
-      console.log(document.getElementById('content'))
-      document.getElementById('content').src = this.src
+      this.dialogVisible = true
+      // TODO: 服务挂了，暂时停用智能教练
+      // let name = this.$route.name
+      // if (name === 'Home') {
+      //   this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22home%22&mode=kefu&res=fwh5_desktop'
+      // } else if (name === 'Contest' || name === 'ContestInfo') {
+      //   this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22rangegame%22&mode=kefu&res=fwh5_desktop'
+      // } else if (name === 'Problem') {
+      //   this.src = 'http://39.100.235.47:8888/index.html?token=%7B%22to%22%3A%22%23demohelp%22%2C%22from%22%3A%22carol%22%2C%22type%22%3A%22kefu%22%7D&msg=%22subject%22&mode=kefu&res=fwh5_desktop'
+      // }
+      // document.getElementById('content').src = this.src
     },
     changeMessage () {
       if (!this.$store.getters.getIsLogin) {
@@ -111,15 +144,19 @@ export default {
     },
     stopTalking () {
       this.urlService = require('../assets/image/icon/robot_angry.jpg')
-      this.message = '不听就算了，哼'
+      this.message = '我才不爬，你能把我咋地？哼'
       this.visiable = true
       this.isTalking = false
       if (this.time) {
         clearInterval(this.time)
       }
       setTimeout(() => {
-        this.visiable = false
-      }, 2000)
+        this.message = '嘤嘤嘤，我爬了，想我的时候点左边的按钮叫我'
+      }, 3000)
+      setTimeout(() => {
+        // this.visiable = false
+        this.shutdown = true
+      }, 6000)
     },
     startTalking () {
       this.message = '算你识相，哼'
@@ -130,7 +167,6 @@ export default {
       this.time = setInterval(function () { _this.changeMessage() }, 6000)
     }
   },
-
   beforeDestroy () {
     if (this.time) {
       clearInterval(this.time)
@@ -143,12 +179,19 @@ export default {
 <style scoped>
 .customerservice-body {
   position: fixed;
-  display: flex;
+  display: inline-block;
+  z-index: 100;
   left: 10px;
   bottom: 30px;
-  z-index: 100;
   width: 150px;
   height: 180px;
+}
+
+.fixed-button {
+  position: fixed;
+  display: inline-block;
+  left: 10px;
+  bottom: 30px;
 }
 
 .service-img {

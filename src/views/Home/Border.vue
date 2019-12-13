@@ -132,6 +132,7 @@ export default {
 .elcard-showmore-link {
   float: right;
   font-size: 14px;
+  line-height: 14px;
 }
 
 /* .title-text {

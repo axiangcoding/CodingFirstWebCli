@@ -10,7 +10,7 @@
     </el-card>
     <div class="list-box">
       <font color="blue">{{username}}</font> 的签到记录
-      <div>
+      <el-card :body-style="{ padding: '0px' }">
         <el-pagination style="float:left"
                        layout="prev, pager, next"
                        :total="tableData.length"
@@ -21,26 +21,28 @@
                   max-height="600">
           <el-table-column prop="username"
                            label="用户名"
-                           width="180"></el-table-column>
+                           min-width="20%"></el-table-column>
           <el-table-column prop="time"
                            label="签到时间"
-                           width="200"></el-table-column>
+                           min-width="25%"></el-table-column>
           <el-table-column label="状态"
-                           width="100">
+                           min-width="15%">
             <template slot-scope="scope">
               <div :class="('日常签到'===scope.row.sign)?'table-row-normal':('迟到'===scope.row.sign?'table-row-late':'table-row-other')">{{scope.row.sign}}</div>
             </template>
           </el-table-column>
           <el-table-column prop="ip"
-                           label="签到IP"></el-table-column>
+                           label="签到IP"
+                           min-width="20%"></el-table-column>
           <el-table-column prop="#"
-                           label="奖励ACB">
+                           label="奖励ACB"
+                           min-width="15%">
             <template>
               <!-- TODO: add by axiang [20190613] 奖励ACB内容暂时留空 -->
             </template>
           </el-table-column>
         </el-table>
-      </div>
+      </el-card>
     </div>
 
   </div>
@@ -125,14 +127,12 @@ export default {
   width: 80%;
   min-height: 600px;
   margin: auto;
-  /* margin-left: 50px; */
-  /* display: flex; */
 }
 
 .calendar-card {
   width: 45%;
   float: left;
-  min-height: 800px;
+  min-height: 400px;
 }
 
 .list-box {

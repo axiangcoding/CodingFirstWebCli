@@ -185,7 +185,7 @@ export default {
     },
     toClockIn () {
       this.$store.commit('setIndex', '')
-      this.$router.push({ path: 'ClockIn' })
+      this.$router.push({ path: 'CheckIn' })
     },
     toMessage () {
       this.$router.push({ path: 'Message' })

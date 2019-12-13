@@ -365,8 +365,12 @@ export default {
       this.answerText = text
     },
     handleSubmit () {
-      this.loading = true
-      this.onSubmit()
+      if (this.code.length <= 50) {
+        this.$message.warning('提交空白代码是要打屁股的')
+      } else {
+        this.loading = true
+        this.onSubmit()
+      }
     },
     handleChangeLanguage (val) {
       this.compileLanguage = val
