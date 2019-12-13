@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="submitinfo-body"
-    v-loading="loading"
-    element-loading-text="正在提交中"
-  >
-    <div
-      class="left-box"
-      id="left-box"
-    >
+  <div class="submitinfo-body"
+       v-loading="loading"
+       element-loading-text="正在提交中">
+    <div class="left-box"
+         id="left-box">
       <el-scrollbar style="height:100%">
         <div class="title-box">
           <h1 class="title-font">
@@ -18,203 +14,133 @@
           <br />64位Integer的IO类型:<el-tag type="info">{{this.dataProblemMain.intFormat?this.dataProblemMain.intFormat:'-'}}</el-tag>
         </div>
         <div v-if="this.$store.getters.getIsLogin">
-          <el-link
-            v-if="this.isSolved"
-            type="success"
-            icon="el-icon-check"
-          >已解决</el-link>
-          <el-link
-            v-else
-            type="danger"
-            icon="el-icon-close"
-          >未解决</el-link>
-          | <el-link
-            v-if="!this.problemIsStar"
-            type="primary"
-            icon="el-icon-star-off"
-          >点击收藏</el-link>
-          <el-link
-            v-else
-            icon="el-icon-star-on"
-          >已收藏</el-link>
-          | <el-link
-            type="warning"
-            v-if="this.dataProblemDetail.judgeOption===0"
-          > 本地判题</el-link>
-          <el-link
-            type="danger"
-            v-else
-          > 第三方判题</el-link>
-          | <el-link
-            type="danger"
-            v-if="this.dataProblemMain.spj===1"
-          >特判</el-link>
-          <el-link
-            type="success"
-            v-else
-          >结果匹配</el-link>
+          <el-link v-if="this.isSolved"
+                   type="success"
+                   icon="el-icon-check">已解决</el-link>
+          <el-link v-else
+                   type="danger"
+                   icon="el-icon-close">未解决</el-link>
+          | <el-link v-if="!this.problemIsStar"
+                   type="primary"
+                   icon="el-icon-star-off">点击收藏</el-link>
+          <el-link v-else
+                   icon="el-icon-star-on">已收藏</el-link>
+          | <el-link type="warning"
+                   v-if="this.dataProblemDetail.judgeOption===0"> 本地判题</el-link>
+          <el-link type="danger"
+                   v-else> 第三方判题</el-link>
+          | <el-link type="danger"
+                   v-if="this.dataProblemMain.spj===1">特判</el-link>
+          <el-link type="success"
+                   v-else>结果匹配</el-link>
         </div>
-        <el-card
-          id="problem"
-          class="problem-detail-card"
-        >
+        <el-card id="problem-card"
+                 class="problem-detail-card">
           <div slot="header">题目描述</div>
-          <div
-            class="detail-card-body"
-            v-html="this.dataProblemMain.description?this.dataProblemMain.description:'没有描述'"
-          ></div>
+          <div class="detail-card-body"
+               v-html="this.dataProblemMain.description?this.dataProblemMain.description:'没有描述'"></div>
         </el-card>
-        <el-card
-          id="problem"
-          class="problem-detail-card"
-        >
+        <el-card id="problem-card"
+                 class="problem-detail-card">
           <div slot="header">输入</div>
-          <div
-            class="detail-card-body"
-            v-html="this.dataProblemMain.input?this.dataProblemMain.input:'没有输入'"
-          ></div>
+          <div class="detail-card-body"
+               v-html="this.dataProblemMain.input?this.dataProblemMain.input:'没有输入'"></div>
         </el-card>
-        <el-card
-          id="problem"
-          class="problem-detail-card"
-        >
+        <el-card id="problem-card"
+                 class="problem-detail-card">
           <div slot="header">输出</div>
-          <div
-            class="detail-card-body"
-            v-html="this.dataProblemMain.output?this.dataProblemMain.output:'没有输出'"
-          ></div>
+          <div class="detail-card-body"
+               v-html="this.dataProblemMain.output?this.dataProblemMain.output:'没有输出'"></div>
         </el-card>
-        <div
-          v-for="item in this.dataProblemSamples"
-          :key="item"
-        >
-          <el-card
-            id="problem"
-            class="problem-detail-card"
-          >
+        <div v-for="item in this.dataProblemSamples"
+             :key="item">
+          <el-card id="problem-card"
+                   class="problem-detail-card">
             <div slot="header">输入样例 {{item.caseOrder+1}}</div>
-            <div
-              class="detail-card-body"
-              v-html="item.inputCase?item.inputCase:'没有输入样例'"
-            ></div>
+            <div class="detail-card-body"
+                 v-html="item.inputCase?item.inputCase:'没有输入样例'"></div>
           </el-card>
-          <el-card
-            id="problem"
-            class="problem-detail-card"
-          >
+          <el-card id="problem-card"
+                   class="problem-detail-card">
             <div slot="header">输出样例 {{item.caseOrder+1}}</div>
-            <div
-              class="detail-card-body"
-              v-html="item.outputCase?item.outputCase:'没有输出样例'"
-            ></div>
+            <div class="detail-card-body"
+                 v-html="item.outputCase?item.outputCase:'没有输出样例'"></div>
           </el-card>
         </div>
-        <el-card
-          id="problem"
-          class="problem-detail-card"
-        >
+        <el-card id="problem-card"
+                 class="problem-detail-card">
           <div slot="header">题目统计信息
-            <el-link
-              type="info"
-              class="elcard-showmore-link"
-            >查看更多</el-link>
+            <el-link type="info"
+                     class="elcard-showmore-link">查看更多</el-link>
           </div>
           <div class="detail-card-body">
-            <div
-              class="echarts-box"
-              id="submit-echarts"
-            ></div>
-            <div
-              class="echarts-box"
-              id="acuser-echarts"
-            ></div>
+            <div class="echarts-box"
+                 id="submit-echarts"></div>
+            <div class="echarts-box"
+                 id="acuser-echarts"></div>
           </div>
         </el-card>
       </el-scrollbar>
     </div>
 
     <div class="right-box">
-      <el-collapse
-        id="submit-collapse"
-        v-model="this.activeIndex"
-      >
-        <el-collapse-item
-          title="答题"
-          name="1"
-        >
+      <el-collapse id="submit-collapse"
+                   v-model="this.activeIndex">
+        <el-collapse-item title="答题"
+                          name="1">
           <div class="code-editor-box">
             请选择语言：
-            <el-select
-              class="language-select"
-              size="medium"
-              v-model="compileLanguage"
-              @change="this.handleChangeLanguage"
-              :disabled="!this.$store.getters.getIsLogin"
-            >
-              <el-option
-                v-for="item in languageType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
+            <el-select class="language-select"
+                       size="medium"
+                       v-model="compileLanguage"
+                       @change="this.handleChangeLanguage"
+                       :disabled="!this.$store.getters.getIsLogin">
+              <el-option v-for="item in languageType"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.value"></el-option>
             </el-select>
             <!-- 全屏显示编辑框 -->
-            <el-button
-              icon="el-icon-full-screen"
-              type="primary"
-              size="mini"
-              round
-              plain
-              @click="fullEditor = true"
-            >全屏</el-button>
-            <el-dialog
-              :visible.sync="fullEditor"
-              custom-class="dialog-body"
-              fullscreen="true"
-            >
-              <aceEditor
-                class="full-code-editor"
-                :language="this.compileLanguage"
-                :readOnly="!this.$store.getters.getIsLogin"
-                :isFull="true"
-                @input="getCode"
-                :value="this.code"
-              ></aceEditor>
+            <el-button icon="el-icon-full-screen"
+                       type="primary"
+                       size="mini"
+                       round
+                       plain
+                       @click="fullEditor = true">全屏</el-button>
+            <el-dialog :visible.sync="fullEditor"
+                       custom-class="dialog-body"
+                       fullscreen="true">
+              <aceEditor class="full-code-editor"
+                         :language="this.compileLanguage"
+                         :readOnly="!this.$store.getters.getIsLogin"
+                         :isFull="true"
+                         @input="getCode"
+                         :value="this.code"></aceEditor>
             </el-dialog>
-            <aceEditor
-              id="ace-editor"
-              class="code-editor"
-              :language="this.compileLanguage"
-              :readOnly="!this.$store.getters.getIsLogin"
-              @input="getCode"
-              :value="this.code"
-            ></aceEditor>
-            <el-button
-              type="primary"
-              @click="handleSubmit"
-              :disabled="!this.$store.getters.getIsLogin"
-            >提交代码</el-button>
+            <aceEditor id="ace-editor"
+                       class="code-editor"
+                       :language="this.compileLanguage"
+                       :readOnly="!this.$store.getters.getIsLogin"
+                       @input="getCode"
+                       :value="this.code"></aceEditor>
+            <el-button type="primary"
+                       @click="handleSubmit"
+                       :disabled="!this.$store.getters.getIsLogin">提交代码</el-button>
           </div>
         </el-collapse-item>
-        <el-collapse-item
-          title="题解"
-          name="2"
-        >
+        <el-collapse-item title="题解"
+                          name="2">
           <el-card>最佳题解：
             无
           </el-card>
           <el-card>添加题解：
             <el-divider></el-divider>
             <div v-if="this.isSolved">
-              <markdownEditor
-                :text="answerText"
-                @inputValue="getText"
-              ></markdownEditor>
+              <markdownEditor :text="answerText"
+                              @inputValue="getText"></markdownEditor>
               {{this.answerText}}
-              <el-button
-                type="primary"
-                size="mini"
-              >提交</el-button>
+              <el-button type="primary"
+                         size="mini">提交</el-button>
             </div>
             <div v-else>解答该题后才能添加题解哦</div>
           </el-card>
@@ -486,6 +412,11 @@ export default {
   width: 320px;
 }
 
+#problem-card {
+  margin-bottom: 10px;
+  margin-right: 14px;
+}
+
 .code-editor-box {
   text-align: center;
   background-color: #eeeeee;
@@ -522,11 +453,6 @@ export default {
   font-size: 14px;
   margin-right: 20px;
   margin-left: 5px;
-}
-
-.problem-detail-card {
-  margin-bottom: 20px;
-  margin-right: 14px;
 }
 
 .detail-card-body {

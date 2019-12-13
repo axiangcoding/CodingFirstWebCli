@@ -1,103 +1,71 @@
 <template>
   <div class="problem-body">
     <div class="function-bar">
-      <el-checkbox
-        class="bar-search-item"
-        v-model="myCollection"
-      >我的收藏</el-checkbox>
-      <el-input
-        v-model="searchTitle"
-        class="bar-search-item-input"
-        size="mini"
-        placeholder="请输入标题"
-      >
+      <el-checkbox class="bar-search-item"
+                   v-model="myCollection">我的收藏</el-checkbox>
+      <el-input v-model="searchTitle"
+                class="bar-search-item-input"
+                size="mini"
+                placeholder="请输入标题">
         <template slot="prepend">标题</template>
       </el-input>
-      <el-select
-        v-model="searchTag"
-        class="bar-search-item-select"
-        size="mini"
-        placeholder="请选择标签"
-      >
-        <el-option
-          v-for="item in problemTags"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        ></el-option>
+      <el-select v-model="searchTag"
+                 class="bar-search-item-select"
+                 size="mini"
+                 placeholder="请选择标签">
+        <el-option v-for="item in problemTags"
+                   :key="item.id"
+                   :label="item.name"
+                   :value="item.id"></el-option>
       </el-select>
-      <el-button
-        size="mini"
-        class="bar-search-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleSelect()"
-      >筛选</el-button>
-      <el-button
-        size="mini"
-        class="bar-search-item"
-        type="info"
-        icon="el-icon-s-grid"
-        @click="handleBackToAll"
-      >查看全部</el-button>
+      <el-button size="mini"
+                 class="bar-search-item"
+                 type="primary"
+                 icon="el-icon-search"
+                 @click="handleSelect()">筛选</el-button>
+      <el-button size="mini"
+                 class="bar-search-item"
+                 type="info"
+                 icon="el-icon-s-grid"
+                 @click="handleBackToAll">查看全部</el-button>
     </div>
-    <el-pagination
-      layout="total, prev, pager, next, jumper"
-      :current-page="this.currentPage"
-      @current-change="switchPage"
-      :total="this.total"
-      :page-size="50"
-    ></el-pagination>
-    <el-table
-      :data="this.tableData"
-      v-loading="loading"
-    >
-      <el-table-column
-        label="是否解决"
-        min-width="20%"
-      >
+    <el-pagination layout="total, prev, pager, next, jumper"
+                   :current-page="this.currentPage"
+                   @current-change="switchPage"
+                   :total="this.total"
+                   :page-size="this.pageSize"></el-pagination>
+    <el-table :data="this.tableData"
+              v-loading="loading">
+      <el-table-column label="是否解决"
+                       min-width="20%">
         <template slot-scope="scope">
           <span :class="scope.row.isSolved==='✔'?'success-row':scope.row.isSolved==='？'?'warning-row':'error-row'">{{scope.row.isSolved}}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="problemId"
-        label="#"
-        min-width="20%"
-      ></el-table-column>
-      <el-table-column
-        prop="Title"
-        label="题目标题"
-        min-width="80%"
-      >
+      <el-table-column prop="problemId"
+                       label="#"
+                       min-width="20%"></el-table-column>
+      <el-table-column prop="Title"
+                       label="题目标题"
+                       min-width="80%">
         <template slot-scope="scope">
-          <el-link
-            type="primary"
-            @click="toSubmit(scope.row.problemId)"
-          >{{scope.row.title}}</el-link>
+          <el-link type="primary"
+                   @click="toSubmit(scope.row.problemId)">{{scope.row.title}}</el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="ratio"
-        label="通过率（通过人数/总提交数）"
-        min-width="50%"
-      ></el-table-column>
-      <el-table-column
-        label="题目难度"
-        min-width="20%"
-      >
+      <el-table-column prop="ratio"
+                       label="通过率（通过人数/总提交数）"
+                       min-width="50%"></el-table-column>
+      <el-table-column label="题目难度"
+                       min-width="20%">
         <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.difficult==='简单'?'success': scope.row.difficult==='中等'? 'warning':'danger'"
-            effect="dark"
-          > {{scope.row.difficult}} </el-tag>
+          <el-tag :type="scope.row.difficult==='简单'?'success': scope.row.difficult==='中等'? 'warning':'danger'"
+                  effect="dark"> {{scope.row.difficult}} </el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="题目来源"
-        prop="belongToOj"
-        min-width="20%"
-      ></el-table-column>
+      <el-table-column label="题目来源"
+                       prop="belongToOj"
+                       min-width="20%"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -113,6 +81,7 @@ export default {
       searchTag: '',
       problemTags: [],
       currentPage: 1,
+      pageSize: 20,
       total: 0,
       tableData: [],
       isSearch: false,
@@ -148,7 +117,7 @@ export default {
       this.loading = true
       let params = new URLSearchParams()
       params.append('pageNum', this.currentPage)
-      params.append('pageSize', 50)
+      params.append('pageSize', this.pageSize)
       params.append('tagId', this.searchTag)
       params.append('title', this.searchTitle)
       params.append('username', this.$store.getters.getUsername)
@@ -259,9 +228,8 @@ export default {
   color: red;
 }
 
-.warning-row{
-
-    font-weight: bold;
+.warning-row {
+  font-weight: bold;
   color: blue;
 }
 </style>

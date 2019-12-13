@@ -3,40 +3,26 @@
     <el-card id="topborder">
       <div slot="header">
         <span class="title-text">积分榜 Top10</span>
-        <el-link
-          type="info"
-          class="elcard-showmore-link"
-        >查看全部</el-link>
+        <el-link type="info"
+                 class="elcard-showmore-link">查看全部</el-link>
       </div>
-      <el-table
-        :data="ratingTop"
-        :cell-style="{padding:5+'px'}"
-      >
-        <el-table-column
-          type="index"
-          label="#"
-          min-width="20%"
-        ></el-table-column>
-        <el-table-column
-          label="用户名"
-          min-width="50%"
-        >
+      <el-table :data="ratingTop"
+                :cell-style="{padding:5+'px'}">
+        <el-table-column type="index"
+                         label="#"
+                         min-width="20%"></el-table-column>
+        <el-table-column label="用户名"
+                         min-width="50%">
           <template slot-scope="scope">
-            <span
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.nick}}</span>
+            <span :class="selectColor(scope)"
+                  @click="toUser(scope.row.username)">{{scope.row.nick}}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="Rating"
-          min-width="30%"
-        >
+        <el-table-column label="Rating"
+                         min-width="30%">
           <template slot-scope="scope">
-            <span
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.rating}}</span>
+            <span :class="selectColor(scope)"
+                  @click="toUser(scope.row.username)">{{scope.row.rating}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -44,78 +30,50 @@
     <el-card id="topborder">
       <div slot="header">
         <span class="title-text">AC题数榜 Top10</span>
-        <el-link
-          type="info"
-          class="elcard-showmore-link"
-        >查看全部</el-link>
+        <el-link type="info"
+                 class="elcard-showmore-link">查看全部</el-link>
       </div>
-      <el-table
-        :data="acTop"
-        :cell-style="{padding:5+'px'}"
-      >
-        <el-table-column
-          type="index"
-          label="#"
-          min-width="20%"
-        ></el-table-column>
-        <el-table-column
-          label="用户名"
-          min-width="50%"
-        >
+      <el-table :data="acTop"
+                :cell-style="{padding:5+'px'}">
+        <el-table-column type="index"
+                         label="#"
+                         min-width="20%"></el-table-column>
+        <el-table-column label="用户名"
+                         min-width="50%">
           <template slot-scope="scope">
-            <div
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.nick}}</div>
+            <div :class="selectColor(scope)"
+                 @click="toUser(scope.row.username)">{{scope.row.nick}}</div>
           </template></el-table-column>
-        <el-table-column
-          label="AC题数"
-          min-width="30%"
-        >
+        <el-table-column label="AC题数"
+                         min-width="30%">
           <template slot-scope="scope">
-            <div
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.acNum}}</div>
+            <div :class="selectColor(scope)"
+                 @click="toUser(scope.row.username)">{{scope.row.acNum}}</div>
           </template></el-table-column>
       </el-table>
     </el-card>
     <el-card id="topborder">
       <div slot="header">
         <span class="title-text">AC币富豪榜 Top10</span>
-        <el-link
-          type="info"
-          class="elcard-showmore-link"
-        >查看全部</el-link>
+        <el-link type="info"
+                 class="elcard-showmore-link">查看全部</el-link>
       </div>
-      <el-table
-        :data="acbTop"
-        :cell-style="{padding:5+'px'}"
-      >
-        <el-table-column
-          type="index"
-          label="#"
-          min-width="20%"
-        ></el-table-column>
-        <el-table-column
-          label="用户名"
-          min-width="50%"
-        >
+      <el-table :data="acbTop"
+                :cell-style="{padding:5+'px'}">
+        <el-table-column type="index"
+                         label="#"
+                         min-width="20%"></el-table-column>
+        <el-table-column label="用户名"
+                         min-width="50%">
           <template slot-scope="scope">
-            <div
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.nick}}</div>
+            <div :class="selectColor(scope)"
+                 @click="toUser(scope.row.username)">{{scope.row.nick}}</div>
           </template></el-table-column>
-        <el-table-column
-          label="AC币"
-          min-width="30%"
-        >
+        <el-table-column label="AC币"
+                         min-width="30%">
           <template slot-scope="scope">
-            <div
-              :class="selectColor(scope)"
-              @click="toUser(scope.row.username)"
-            >{{scope.row.acb}}</div>
+            <div :class="selectColor(scope)"
+                 @click="toUser(scope.row.username)">{{scope.row.acb}}</div>
           </template></el-table-column>
       </el-table>
     </el-card>
@@ -166,15 +124,20 @@ export default {
 </script>
 
 <style scoped >
-.el-card {
-  margin-bottom: 10px;
-  font-weight: bolder;
+#topborder {
+  margin-bottom: 15px;
 }
 
-.title-text {
+/* 卡片标题上的查看更多 */
+.elcard-showmore-link {
+  float: right;
+  font-size: 14px;
+}
+
+/* .title-text {
   color: red;
   text-shadow: 0px 0px 5px gold;
-}
+} */
 
 .showmore-link {
   float: right;

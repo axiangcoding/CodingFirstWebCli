@@ -1,29 +1,34 @@
 <template>
-  <div id="app"
-       v-loading="loading">
+  <div id="app">
+    <el-container>
+      <el-header>
 
-    <Head class="header"></Head>
-    <!-- <draggable> -->
-    <Robot></Robot>
-    <!-- </draggable> -->
-    <div class="main">
-      <transition name="fade"
-                  mode="out-in">
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive">
+        <Head></Head>
+      </el-header>
+      <el-main>
+        <transition name="fade"
+                    mode="out-in">
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive">
+              <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+            </router-view>
+          </keep-alive>
+        </transition>
+        <transition name="fade"
+                    mode="out-in">
+          <router-view v-if="!$route.meta.keepAlive">
             <!-- 这里是会被缓存的视图组件，比如 Home！ -->
           </router-view>
-        </keep-alive>
-      </transition>
-      <transition name="fade"
-                  mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive">
-          <!-- 这里是会被缓存的视图组件，比如 Home！ -->
-        </router-view>
-      </transition>
-    </div>
+        </transition>
+
+      </el-main>
+      <el-footer height="90px">
+        <Foot></Foot>
+      </el-footer>
+    </el-container>
+    <Robot></Robot>
+    <!-- FIXME: 返回顶部有问题，点击后会丢失滚动条，暂时没法定位问题，故取消 -->
     <BackTop></BackTop>
-    <Foot></Foot>
   </div>
 </template>
 
@@ -32,7 +37,6 @@ import Head from '@/components/HeadComponent'
 import Foot from '@/components/FootComponent'
 import Robot from '@/components/RobotComponent'
 import BackTop from './components/BackTopComponent'
-// import draggeable from 'vuedraggable'
 
 export default {
   name: 'App',
@@ -41,11 +45,10 @@ export default {
     Foot,
     Robot,
     BackTop
-    // draggeable
+
   },
   data () {
     return {
-      loading: false
     }
   },
   created () {
@@ -77,25 +80,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: black;
-  padding: 0;
-  margin: 0;
-  background-color: #fafafa;
-  min-height: 600px;
-}
-
-.header {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 10;
-}
-
-.main {
   width: 100%;
-  background-color: #fafafa;
-  min-height: 650px;
-  margin-top: 80px;
+  height: 100%;
+}
+
+.el-header {
+  background-color: #f5f5f5;
+}
+
+.el-main {
+  height: 100%;
+}
+
+.el-footer {
+  background-color: #f5f5f5;
 }
 
 .fade-enter {

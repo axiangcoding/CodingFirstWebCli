@@ -13,22 +13,14 @@
       <div v-if="this.$store.getters.getIsLogin && loaded">
         <span class="info-font">亲爱的 {{this.$store.getters.getUsername}}，根据我们的预测，您可能会对以下题目感兴趣，要不要试试？</span>
         <br />
-        <el-link
-          type="primary"
-          @click="toSubmit(recommendProblems[0].pid)"
-        >#{{recommendProblems[0].pid}} {{recommendProblems[0].title}} </el-link><br />
-        <el-link
-          type="primary"
-          @click="toSubmit(recommendProblems[1].pid)"
-        >#{{recommendProblems[1].pid}} {{recommendProblems[1].title}} </el-link><br />
-        <el-link
-          type="primary"
-          @click="toSubmit(recommendProblems[2].pid)"
-        >#{{recommendProblems[2].pid}} {{recommendProblems[2].title}} </el-link><br />
-        <el-link
-          class="info-font"
-          @click="getRecommendProblems()"
-        >
+        <el-link type="primary"
+                 @click="toSubmit(recommendProblems[0].pid)">#{{recommendProblems[0].pid}} {{recommendProblems[0].title}} </el-link><br />
+        <el-link type="primary"
+                 @click="toSubmit(recommendProblems[1].pid)">#{{recommendProblems[1].pid}} {{recommendProblems[1].title}} </el-link><br />
+        <el-link type="primary"
+                 @click="toSubmit(recommendProblems[2].pid)">#{{recommendProblems[2].pid}} {{recommendProblems[2].title}} </el-link><br />
+        <el-link class="info-font"
+                 @click="getRecommendProblems()">
           <el-icon class="el-icon-refresh"></el-icon>不喜欢？点我换一波
         </el-link>
       </div>
@@ -51,20 +43,16 @@
           </template>
           <div>
             <el-tag type="danger">
-              <el-link
-                href="https://www.google.cn/chrome/"
-                target="_blank"
-                :underline="false"
-                type="danger"
-              >谷歌浏览器</el-link>
+              <el-link href="https://www.google.cn/chrome/"
+                       target="_blank"
+                       :underline="false"
+                       type="danger">谷歌浏览器</el-link>
             </el-tag>
             <el-tag type="warning">
-              <el-link
-                href="https://www.firefox.com.cn/"
-                target="_blank"
-                :underline="false"
-                type="warning"
-              >火狐浏览器</el-link>
+              <el-link href="https://www.firefox.com.cn/"
+                       target="_blank"
+                       :underline="false"
+                       type="warning">火狐浏览器</el-link>
             </el-tag>
           </div>
         </el-collapse-item>
@@ -74,12 +62,10 @@
           </template>
           <div>
             <el-tag type="success">
-              <el-link
-                href="http://www.codeblocks.org/"
-                target="_blank"
-                :underline="false"
-                type="success"
-              >Code::Blocks</el-link>
+              <el-link href="http://www.codeblocks.org/"
+                       target="_blank"
+                       :underline="false"
+                       type="success">Code::Blocks</el-link>
             </el-tag>
           </div>
         </el-collapse-item>
@@ -89,19 +75,15 @@
           </template>
           <div>
             <el-tag>
-              <el-link
-                href="http://120.78.128.11/file/jihehuaban.zip"
-                target="_blank"
-                :underline="false"
-                type="primary"
-              >几何画板</el-link>
+              <el-link href="http://120.78.128.11/file/jihehuaban.zip"
+                       target="_blank"
+                       :underline="false"
+                       type="primary">几何画板</el-link>
             </el-tag>
             <el-tag type="info">
-              <el-link
-                href="http://120.78.128.11/file/upload/20160818/1471501247639019014.zip"
-                target="_blank"
-                :underline="false"
-              >卡西欧计算器</el-link>
+              <el-link href="http://120.78.128.11/file/upload/20160818/1471501247639019014.zip"
+                       target="_blank"
+                       :underline="false">卡西欧计算器</el-link>
             </el-tag>
           </div>
         </el-collapse-item>
@@ -232,7 +214,7 @@ export default {
 
 .box-card {
   min-height: 200px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #submit-charts {

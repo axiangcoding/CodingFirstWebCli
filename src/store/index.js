@@ -10,9 +10,9 @@ export default new Vuex.Store({
     isLogin: false,
     isAdmin: false,
     isClockIn: false,
-    index: '',
     unReadMsgCount: 0,
-    token: ''
+    token: '',
+    activeIndex: ''
   },
   mutations: {
     LOGOUT (state) {
@@ -45,6 +45,9 @@ export default new Vuex.Store({
     },
     setToken (state, token) {
       state.token = token
+    },
+    setActiveIndex (state, activeIndex) {
+      state.activeIndex = activeIndex
     }
   },
   getters: {
@@ -54,7 +57,8 @@ export default new Vuex.Store({
     getIsAdmin: state => state.isAdmin,
     getIsClockIn: state => state.isClockIn,
     getUnReadMsgCount: state => state.unReadMsgCount,
-    getToken: state => state.token
+    getToken: state => state.token,
+    getActiveIndex: state => state.activeIndex
   },
   actions: {
   },

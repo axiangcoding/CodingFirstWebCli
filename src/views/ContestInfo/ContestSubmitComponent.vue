@@ -29,19 +29,19 @@
           <el-link type="success"
                    v-else>结果匹配</el-link>
         </div>
-        <el-card id="problem"
+        <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">题目描述</div>
           <div class="detail-card-body"
                v-html="this.dataProblemMain.description?this.dataProblemMain.description:'没有描述'"></div>
         </el-card>
-        <el-card id="problem"
+        <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">输入</div>
           <div class="detail-card-body"
                v-html="this.dataProblemMain.input?this.dataProblemMain.input:'没有输入'"></div>
         </el-card>
-        <el-card id="problem"
+        <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">输出</div>
           <div class="detail-card-body"
@@ -49,13 +49,13 @@
         </el-card>
         <div v-for="item in this.dataProblemSamples"
              :key="item">
-          <el-card id="problem"
+          <el-card id="problem-card"
                    class="problem-detail-card">
             <div slot="header">输入样例 {{item.caseOrder+1}}</div>
             <div class="detail-card-body"
                  v-html="item.inputCase?item.inputCase:'没有输入样例'"></div>
           </el-card>
-          <el-card id="problem"
+          <el-card id="problem-card"
                    class="problem-detail-card">
             <div slot="header">输出样例 {{item.caseOrder+1}}</div>
             <div class="detail-card-body"

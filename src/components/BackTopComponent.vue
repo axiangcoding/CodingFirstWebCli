@@ -1,67 +1,109 @@
 <template>
-  <div class="scrollTop"
-       v-show="showTop"
-       @click="toTop">
-    <el-image :src="require('../assets/image/icon/back_top.png')" />
-  </div>
+  <transition :name="transitionName">
+    <div v-show="visible"
+         :style="customStyle"
+         class="back-to-ceiling"
+         @click="backToTop">
+      <el-image :src="require('../assets/image/icon/back_top.png')" />
+    </div>
+  </transition>
 </template>
 
 <script>
 export default {
-  name: 'scroll-top',
-  data () {
-    return {
-      scrollTop: 0,
-      time: 0,
-      dParams: 20,
-      scrollState: 0
+  name: 'BackToTop',
+  props: {
+    visibilityHeight: {
+      type: Number,
+      default: 400
+    },
+    backPosition: {
+      type: Number,
+      default: 0
+    },
+    customStyle: {
+      type: Object,
+      default: function () {
+        return {
+          right: '50px',
+          bottom: '50px',
+          width: '40px',
+          height: '40px',
+          'border-radius': '4px',
+          'line-height': '45px'
+        }
+      }
+    },
+    transitionName: {
+      type: String,
+      default: 'fade'
     }
   },
-  computed: {
-    showTop: function () {
-      let value = this.scrollTop > 300
-      return value
+  data () {
+    return {
+      visible: false,
+      interval: null,
+      isMoving: false
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.getScrollTop)
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.handleScroll)
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   },
   methods: {
-    toTop (e) {
-      if (this.scrollState) {
-        return
-      }
-      this.scrollState = 1
-      e.preventDefault()
-      // let distance = document.documentElement.scrollTop || document.body.scrollTop
-      let _this = this
-      this.time = setInterval(function () { _this.gotoTop(_this.scrollTop - _this.dParams) }, 10)
+    handleScroll () {
+      this.visible = window.pageYOffset > this.visibilityHeight
     },
-    gotoTop (distance) {
-      this.dParams += 20
-      distance = distance > 0 ? distance : 0
-      document.documentElement.scrollTop = document.body.scrollTop = window.pageYOffset = distance
-      if (this.scrollTop < 10) {
-        clearInterval(this.time)
-        this.dParams = 20
-        this.scrollState = 0
-      }
+    backToTop () {
+      if (this.isMoving) return
+      const start = window.pageYOffset
+      let i = 0
+      this.isMoving = true
+      this.interval = setInterval(() => {
+        const next = Math.floor(this.easeInOutQuad(10 * i, start, -start, 500))
+        if (next <= this.backPosition) {
+          window.scrollTo(0, this.backPosition)
+          clearInterval(this.interval)
+          this.isMoving = false
+        } else {
+          window.scrollTo(0, next)
+        }
+        i++
+      }, 16.7)
     },
-    getScrollTop () {
-      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    easeInOutQuad (t, b, c, d) {
+      if ((t /= d / 2) < 1) return c / 2 * t * t + b
+      return -c / 2 * (--t * (t - 2) - 1) + b
     }
   }
-
 }
 </script>
 
 <style scoped>
-.scrollTop {
+.back-to-ceiling {
   position: fixed;
-  right: 50px;
-  bottom: 50px;
-  width: 40px;
-  height: 40px;
+  display: inline-block;
+  text-align: center;
   cursor: pointer;
+}
+.back-to-ceiling:hover {
+  background: #d5dbe7;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.back-to-ceiling .Icon {
+  fill: #9aaabf;
+  background: none;
 }
 </style>

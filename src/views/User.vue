@@ -1,19 +1,13 @@
 <template>
   <div class="info-body">
-    <el-card
-      id="userInfo"
-      class="box-card-userInfo"
-      shadow="always"
-    >
+    <el-card id="userInfo"
+             class="box-card-userInfo"
+             shadow="always">
       <div class="user-avatar">
-        <img
-          class="avatar-img"
-          :src="this.userCustomInfo.avatarUrl"
-        />
-        <img
-          class="seal-img"
-          :src="this.userCustomInfo.sealUrl"
-        />
+        <img class="avatar-img"
+             :src="this.userCustomInfo.avatarUrl" />
+        <img class="seal-img"
+             :src="this.userCustomInfo.sealUrl" />
       </div>
       <div>
         <h1>
@@ -43,11 +37,9 @@
         当前有<span style="color:red;font-size:26px;">{{this.userBaseInfo.acb}}</span>ACB。<br />
         <div v-if="rewardInfo.length !== 0">
           <span style="color:#eeeeee;font-size:26px;">正式队员经历：</span><br />
-          <span
-            :key="item"
-            v-for="item in rewardInfo"
-            style="font-size:20px;"
-          >
+          <span :key="item"
+                v-for="item in rewardInfo"
+                style="font-size:20px;">
             {{item}}<br />
           </span>
         </div>
@@ -55,18 +47,14 @@
       </div>
       <div id="info-radar">
       </div>
-      <div
-        class="info-permission"
-        v-if="!isVisitor"
-      >
+      <div class="info-permission"
+           v-if="!isVisitor">
         【拥有权限】<br />
-        <el-tag
-          effect="dark"
-          type="success"
-          :key="per"
-          size="small"
-          v-for="per in this.userPerList"
-        >{{per}}</el-tag>
+        <el-tag effect="dark"
+                type="success"
+                :key="per"
+                size="small"
+                v-for="per in this.userPerList">{{per}}</el-tag>
       </div>
     </el-card>
     <el-card class="box-card">
@@ -79,28 +67,20 @@
       <div slot="header">
         已解决题目:{{problemSolved.length}}
       </div>
-      <div
-        :key="item"
-        v-for="item in problemSolved"
-      >
-        <div
-          class="problem-id"
-          @click="toSubmit(item)"
-        >{{item}}</div>
+      <div :key="item"
+           v-for="item in problemSolved">
+        <div class="problem-id"
+             @click="toSubmit(item)">{{item}}</div>
       </div>
     </el-card>
     <el-card class="box-card">
       <div slot="header">
         尝试过但是仍未解决的题目列表：{{problemSolving.length}}
       </div>
-      <div
-        :key="item"
-        v-for="item in problemSolving"
-      >
-        <div
-          class="problem-id"
-          @click="toSubmit(item)"
-        >
+      <div :key="item"
+           v-for="item in problemSolving">
+        <div class="problem-id"
+             @click="toSubmit(item)">
           {{item}}</div>
       </div>
     </el-card>
@@ -117,7 +97,7 @@ export default {
       userBaseInfo: '',
       userCustomInfo: '',
       rewardInfo: [],
-      radar: '',
+      radar: [],
       title: '',
       userPerList: [],
       problemSolved: [],
@@ -181,15 +161,14 @@ export default {
       console.log(this.rewardInfo)
     },
     async getRadarData (username) {
-      // let params = new URLSearchParams()
-      // params.append('username', username)
-      // let dataUserRadar = await this.$http
-      //   .get('/user/getUserRadar', params)
-      //   .catch(() => {
-
-      //   })
-      // this.radar = dataUserRadar.datas[0]
-      // this.setRadar()
+      let params = new URLSearchParams()
+      params.append('username', username)
+      let dataUserRadar = await this.$http.get('/problem/radar/get', params)
+      let tempRadarData = dataUserRadar.datas[0]
+      for (let i = 0; i < tempRadarData.length; i++) {
+        this.radar.push(tempRadarData[i].score)
+      }
+      this.setRadar()
     },
     async getUserPermission () {
       // let username = this.$store.getters.getUsername
@@ -204,9 +183,6 @@ export default {
     },
     setRadar () {
       let myChart = echarts.init(document.getElementById('info-radar'))
-      let r1 = this.radar.split(',')
-      r1[0] = r1[0].split('[')[1]
-      r1[6] = r1[6].split(']')[0]
       let option = {
         tooltip: {},
         radar: {
@@ -216,21 +192,21 @@ export default {
             }
           },
           indicator: [
-            { name: '基础', max: 4 },
-            { name: '动态规划', max: 4 },
-            { name: '搜索', max: 4 },
-            { name: '图论', max: 4 },
-            { name: '几何', max: 4 },
-            { name: '数学', max: 4 },
-            { name: '数据结构', max: 4 }
+            { name: '基础', max: 100 },
+            { name: '数据结构', max: 100 },
+            { name: '数学', max: 100 },
+            { name: '几何', max: 100 },
+            { name: '图论', max: 100 },
+            { name: '搜索', max: 100 },
+            { name: '动态规划', max: 100 }
           ]
         },
         series: [
           {
-            name: this.user.nick,
+            name: this.userBaseInfo.nick + '的技能雷达图，显示数字为百分比',
             type: 'radar',
             itemStyle: { normal: { areaStyle: { type: 'default' } } },
-            data: [{ value: r1 }]
+            data: [{ value: this.radar }]
           }
         ]
       }

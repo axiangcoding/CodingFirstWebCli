@@ -58,13 +58,10 @@ export default {
 
 <style scoped>
 .foot-box {
-  float: left;
   margin: 0;
   width: 100%;
-  height: auto;
   font-family: '微软雅黑', '宋体', 'Arial Narrow', Helvetica, sans-serif;
   font-size: 15px;
-  background-color: #eeeeee;
 }
 
 .title-span {

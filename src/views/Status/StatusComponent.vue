@@ -1,146 +1,100 @@
 <template>
   <div class="problem-body">
     <div class="function-bar">
-      <el-input
-        v-model="searchNick"
-        class="bar-search-item-input"
-        size="mini"
-        placeholder="请输入昵称"
-      >
+      <el-input v-model="searchNick"
+                class="bar-search-item-input"
+                size="mini"
+                placeholder="请输入昵称">
         <template slot="prepend">用户昵称</template>
       </el-input>
-      <el-input
-        v-model="searchPid"
-        class="bar-search-item-input"
-        size="mini"
-        placeholder="请输入题号"
-      >
+      <el-input v-model="searchPid"
+                class="bar-search-item-input"
+                size="mini"
+                placeholder="请输入题号">
         <template slot="prepend">题号</template>
       </el-input>
-      <el-select
-        v-model="searchResult"
-        class="bar-search-item-select"
-        size="mini"
-        placeholder="评测结果"
-      >
-        <el-option
-          :class="switchResultClass(item.name)"
-          v-for="item in resultList"
-          :key="item.value"
-          :label="item.name"
-          :value="item.value"
-        ></el-option>
+      <el-select v-model="searchResult"
+                 class="bar-search-item-select"
+                 size="mini"
+                 placeholder="评测结果">
+        <el-option :class="switchResultClass(item.name)"
+                   v-for="item in resultList"
+                   :key="item.value"
+                   :label="item.name"
+                   :value="item.value"></el-option>
       </el-select>
-      <el-select
-        v-model="searchLanguage"
-        class="bar-search-item-select"
-        size="mini"
-        placeholder="语言"
-      >
-        <el-option
-          v-for="item in langList"
-          :key="item.value"
-          :label="item.name"
-          :value="item.value"
-        ></el-option>
+      <el-select v-model="searchLanguage"
+                 class="bar-search-item-select"
+                 size="mini"
+                 placeholder="语言">
+        <el-option v-for="item in langList"
+                   :key="item.value"
+                   :label="item.name"
+                   :value="item.value"></el-option>
       </el-select>
-      <el-button
-        size="mini"
-        class="bar-search-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleSelect"
-      >筛选</el-button>
-      <el-button
-        size="mini"
-        class="bar-search-item"
-        type="info"
-        icon="el-icon-s-grid"
-        @click="handleBackToAll"
-      >查看全部</el-button>
+      <el-button size="mini"
+                 class="bar-search-item"
+                 type="primary"
+                 icon="el-icon-search"
+                 @click="handleSelect">筛选</el-button>
+      <el-button size="mini"
+                 class="bar-search-item"
+                 type="info"
+                 icon="el-icon-s-grid"
+                 @click="handleBackToAll">查看全部</el-button>
     </div>
-    <el-pagination
-      layout="total, prev, pager, next, jumper"
-      :current-page="this.currentPage"
-      @current-change="switchPage"
-      :total="this.total"
-      :page-size="this.PageSize"
-    ></el-pagination>
-    <el-table
-      :data="this.tableData"
-      v-loading="loading"
-    >
-      <el-table-column
-        prop="id"
-        label="#"
-        min-width="8%"
-      ></el-table-column>
-      <el-table-column
-        label="昵称"
-        min-width="12%"
-      >
+    <el-pagination layout="total, prev, pager, next, jumper"
+                   :current-page="this.currentPage"
+                   @current-change="switchPage"
+                   :total="this.total"
+                   :page-size="this.pageSize"></el-pagination>
+    <el-table :data="this.tableData"
+              v-loading="loading">
+      <el-table-column prop="id"
+                       label="#"
+                       min-width="8%"></el-table-column>
+      <el-table-column label="昵称"
+                       min-width="12%">
         <template slot-scope="scope">
-          <el-link
-            type="primary"
-            @click="toUser(scope.row.username)"
-          >{{scope.row.nick}}</el-link>
+          <el-link type="primary"
+                   @click="toUser(scope.row.username)">{{scope.row.nick}}</el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        label="题目"
-        min-width="6%"
-      >
+      <el-table-column label="题目"
+                       min-width="6%">
         <template slot-scope="scope">
-          <el-link
-            type="primary"
-            @click="toSubmit(scope.row.problemId)"
-          >{{scope.row.problemId}}</el-link>
+          <el-link type="primary"
+                   @click="toSubmit(scope.row.problemId)">{{scope.row.problemId}}</el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        label="评测结果"
-        min-width="14%"
-      >
+      <el-table-column label="评测结果"
+                       min-width="14%">
         <template slot-scope="scope">
-          <el-tag
-            size="medium"
-            effect="dark"
-            :type="switchResultColor(scope.row.result)"
-          >{{ scope.row.result }}</el-tag>
+          <el-tag size="medium"
+                  effect="dark"
+                  :type="switchResultColor(scope.row.result)">{{ scope.row.result }}</el-tag>
 
         </template>
       </el-table-column>
-      <el-table-column
-        label="语言"
-        min-width="8%"
-      >
+      <el-table-column label="语言"
+                       min-width="8%">
         <template slot-scope="scope">
-          <el-link
-            type="primary"
-            @click="toCodeView(scope.row.id)"
-          >{{scope.row.language}}</el-link>
+          <el-link type="primary"
+                   @click="toCodeView(scope.row.id)">{{scope.row.language}}</el-link>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="timeUsed"
-        label="耗时"
-        min-width="8%"
-      ></el-table-column>
-      <el-table-column
-        prop="memoryUsed"
-        label="使用内存"
-        min-width="8%"
-      ></el-table-column>
-      <el-table-column
-        prop="codeLength"
-        label="代码长"
-        min-width="6%"
-      ></el-table-column>
-      <el-table-column
-        prop="submitTime"
-        label="提交时间"
-        min-width="14%"
-      >
+      <el-table-column prop="timeUsed"
+                       label="耗时"
+                       min-width="8%"></el-table-column>
+      <el-table-column prop="memoryUsed"
+                       label="使用内存"
+                       min-width="8%"></el-table-column>
+      <el-table-column prop="codeLength"
+                       label="代码长"
+                       min-width="6%"></el-table-column>
+      <el-table-column prop="submitTime"
+                       label="提交时间"
+                       min-width="14%">
         <template slot-scope="scope">
           <span>{{new Date(scope.row.submitTime).toLocaleString(
             'chinese',
@@ -162,7 +116,7 @@ export default {
       searchLanguage: '',
       searchResult: '',
       currentPage: 1,
-      PageSize: 30,
+      pageSize: 20,
       total: 0,
       tableData: [],
       isSearch: false,
@@ -261,7 +215,7 @@ export default {
       this.loading = true
       let params = new URLSearchParams()
       params.append('pageNum', this.currentPage)
-      params.append('pageSize', this.PageSize)
+      params.append('pageSize', this.pageSize)
       params.append('nick', this.searchNick)
       params.append('problemId', this.searchPid)
       params.append('result', this.searchResult)

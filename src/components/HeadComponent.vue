@@ -1,16 +1,19 @@
 <template>
   <div class="header">
     <div class="head-box">
-      <el-image @click="toIndex"
-                class="logo-pic"
-                :src="picSrc"
-                fit="fit"></el-image>
       <el-menu class="el-menu"
                mode="horizontal"
+               background-color="#f5f5f5"
                active-text-color="#409EFF"
-               text-color="black"
-               @select="handleSelect"
+               text-color="#333333"
+               :default-active="activeIndex"
+               @select="handleMenuSelect"
                router>
+        <el-menu-item class="logo-menu-item">
+          <el-image class="logo-pic"
+                    :src="picSrc"
+                    fit="fit"></el-image>
+        </el-menu-item>
         <el-menu-item index="Index">主 页</el-menu-item>
         <el-menu-item index="Problem">题 目</el-menu-item>
         <el-menu-item index="Status">评 测</el-menu-item>
@@ -40,7 +43,7 @@
         <el-menu-item v-if="this.isAdmin"
                       index="Admin">管理员</el-menu-item>
         <!-- 方便调试暂时设置，正式部署时需要去除 -->
-        <el-menu-item index="Test">测试</el-menu-item>
+        <!-- <el-menu-item index="Test">测试</el-menu-item> -->
         <el-menu-item class="el-menu-item-right"
                       v-if="!this.isLogin"
                       index="Login">登录</el-menu-item>
@@ -118,7 +121,8 @@ export default {
       picSrc: require('../assets/image/logo.png'),
       type: false,
       datas: [],
-      avatarUrl: ''
+      avatarUrl: '',
+      activeIndex: ''
     }
   },
   created () { },
@@ -126,6 +130,7 @@ export default {
     if (this.isLogin) {
       this.checkUnReadMsgCount()
     }
+    this.activeIndex = this.$store.getters.getActiveIndex
   },
   computed: {
     isLogin () {
@@ -142,7 +147,10 @@ export default {
     }
   },
   methods: {
-    handleSelect (key) { },
+    handleMenuSelect (key) {
+      this.activeIndex = key
+      this.$store.commit('setActiveIndex', key)
+    },
     // add by axiang [20190628] 统一处理用户名下拉框的下拉内容
     handleCommand (command) {
       if (command === 'toEditUser') {
@@ -221,10 +229,6 @@ export default {
 
 <style scoped >
 .header {
-  line-height: 56px;
-  padding: 0;
-  margin: 0;
-  background-color: #f5f5f5;
   width: 100%;
 }
 
@@ -234,25 +238,25 @@ export default {
   margin: auto;
 }
 
+.logo-menu-item {
+  padding: 0;
+  margin: 0;
+  width: 100px;
+}
+
 .logo-pic {
-  float: left;
-  width: 9%;
+  width: 100%;
   height: 100%;
-  cursor: pointer;
 }
 
 .el-menu {
-  float: left;
-  width: 90%;
-  border: 0px;
-  border-left: #eeeeee 2px solid;
-  border-right: #eeeeee 2px solid;
-  margin: auto;
+  width: 100%;
+  border-left: #eeeeee 1px solid;
+  border-right: #eeeeee 1px solid;
 }
 
 .el-menu-item-right {
   float: right !important;
-  width: 100px;
   border-right: 0;
   border-left: #eeeeee 1px solid;
 }
@@ -260,10 +264,10 @@ export default {
 .router-link {
   text-decoration: none;
   color: black;
-  font-size: 16px;
 }
 
 .el-menu-item-userinfo {
+  line-height: 4;
   min-width: 120px;
   width: auto;
   border-left: 1px solid #eeeeee;
@@ -271,10 +275,6 @@ export default {
 
 .menu-rightside {
   float: right;
-}
-
-.el-menu-item-userinfo {
-  width: auto;
 }
 
 .clockin-button {

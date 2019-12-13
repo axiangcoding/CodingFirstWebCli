@@ -49,7 +49,7 @@ export default {
 .border-body {
   float: right;
   width: 28%;
-  margin-left: 20px;
+  margin-left: 10px;
   min-height: 400px;
 }
 </style>

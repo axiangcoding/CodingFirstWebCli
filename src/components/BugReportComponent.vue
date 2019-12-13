@@ -91,7 +91,6 @@ export default {
           { required: true, message: '请输入标题', trigger: 'blur' }
         ]
       },
-      // dialogVisible: true,
       formLabelWidth: '100px',
       form: {
         title: '',

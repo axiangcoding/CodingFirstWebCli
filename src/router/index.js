@@ -224,7 +224,7 @@ const routes = [
   {
     path: '*',
     name: 'NotFound',
-    component: () => import('@/components/NotFound.vue'),
+    component: () => import('@/views/NotFound.vue'),
     meta: {
       keepAlive: true
     }

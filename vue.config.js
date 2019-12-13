@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     port: 8082
   },
-  productionSourceMap: false,
+  productionSourceMap: true,
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'prod') {
       config.plugins.push(
