@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
+      <el-header height="61px">
 
         <Head></Head>
       </el-header>
@@ -10,14 +10,14 @@
                     mode="out-in">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive">
-              <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+              <!-- 这里是会被缓存的视图组件 -->
             </router-view>
           </keep-alive>
         </transition>
         <transition name="fade"
                     mode="out-in">
           <router-view v-if="!$route.meta.keepAlive">
-            <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+            <!-- 这里是会被缓存的视图组件 -->
           </router-view>
         </transition>
       </el-main>
@@ -26,7 +26,6 @@
       </el-footer>
     </el-container>
     <Robot></Robot>
-    <!-- FIXME: 返回顶部有问题，点击后会丢失滚动条，暂时没法定位问题，故取消 -->
     <BackTop></BackTop>
   </div>
 </template>
@@ -81,13 +80,19 @@ export default {
 }
 
 .el-header {
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
   background-color: #f5f5f5;
+  box-shadow: 5px 5px 5px #888888;
 }
 
 .el-main {
+  margin-top: 60px;
 }
 
 .el-footer {
+  box-shadow: 0px 0px 5px 2px #888888;
   background-color: #f5f5f5;
 }
 
