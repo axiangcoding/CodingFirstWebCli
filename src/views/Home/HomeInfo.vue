@@ -31,6 +31,7 @@
       <div slot="header">
         热门题解
       </div>
+      <h1>还没开发</h1>
     </el-card>
     <el-card class="box-card">
       <div slot="header">
@@ -39,12 +40,12 @@
     </el-card>
     <el-card class="box-card">
       <div slot="header">
-        常用软件下载中心
+        资源索引
       </div>
       <el-collapse id="download-file">
         <el-collapse-item name="1">
           <template slot="title">
-            <div>浏览器</div>
+            <div>浏览器下载</div>
           </template>
           <div>
             <el-tag type="danger">
@@ -63,7 +64,7 @@
         </el-collapse-item>
         <el-collapse-item name="2">
           <template slot="title">
-            <div>集成开发环境（IDE）</div>
+            <div>集成开发环境（IDE）下载</div>
           </template>
           <div>
             <el-tag type="success">
@@ -76,7 +77,7 @@
         </el-collapse-item>
         <el-collapse-item name="3">
           <template slot="title">
-            <div>其他</div>
+            <div>其他工具下载</div>
           </template>
           <div>
             <el-tag>
@@ -89,6 +90,19 @@
               <el-link href="http://120.78.128.11/file/upload/20160818/1471501247639019014.zip"
                        target="_blank"
                        :underline="false">卡西欧计算器</el-link>
+            </el-tag>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="4">
+          <template slot="title">
+            <div>友情链接</div>
+          </template>
+          <div>
+            <el-tag type="success">
+              <el-link href="http://gitlab.fjutcoder.com/"
+                       target="_blank"
+                       :underline="false"
+                       type="success">GitLab</el-link>
             </el-tag>
           </div>
         </el-collapse-item>

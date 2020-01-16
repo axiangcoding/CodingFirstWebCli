@@ -78,7 +78,7 @@ export default {
   methods: {
     onSubmit (formName) {
       this.logger.d('点击登录按钮')
-      this.loading = true
+
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.userLogin()
@@ -88,6 +88,7 @@ export default {
       })
     },
     async userLogin () {
+      this.loading = true
       let params = new URLSearchParams()
       params.append('username', this.form.name)
       params.append('password', this.form.pwd)

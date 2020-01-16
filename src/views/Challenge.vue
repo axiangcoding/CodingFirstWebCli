@@ -1,9 +1,7 @@
 <template>
   <div class="block-body">
-    <el-card
-      class="box-card"
-      :body-style="{ padding: '0px' }"
-    >
+    <el-card class="box-card"
+             :body-style="{ padding: '0px' }">
       <div slot="header">挑战模式</div>
       <div id="blockView"></div>
     </el-card>
@@ -12,7 +10,6 @@
 
 <script>
 import echarts from 'echarts'
-
 export default {
   data () {
     return {
@@ -68,7 +65,7 @@ export default {
     } else {
       this.$notify({
         title: '提示',
-        message: '登录后才能查看哦',
+        message: '登录后才能查看挑战模式哦',
         type: 'warning',
         offset: 100,
         duration: 3000
@@ -304,9 +301,7 @@ export default {
           res = '无解锁条件\n'
         } else {
           for (let i = 0; i < dataTemp.length; i++) {
-            res += `在模块【${dataTemp[i].name}】中获得【${
-              dataTemp[i].num
-            } 分】<br>`
+            res += `在模块【${dataTemp[i].name}】中获得【${dataTemp[i].num} 分】<br>`
           }
         }
       } else {
@@ -329,6 +324,7 @@ export default {
 }
 
 .box-card {
+  width: 100%;
   margin-bottom: 20px;
 }
 

@@ -89,6 +89,7 @@ export default {
 
 .el-main {
   margin-top: 60px;
+  background-color: #ffffff;
 }
 
 .el-footer {

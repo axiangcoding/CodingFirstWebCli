@@ -170,8 +170,7 @@ export default {
       // 请求后端登出
       this.$http.post('/user/logout', params)
       this.$store.commit('LOGOUT')
-      this.handleSelect('Index')
-      this.$router.push({ path: '/' })
+      this.toIndex()
       this.$message.warning('您已退出登录！')
     },
     honorRank () {
