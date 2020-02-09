@@ -1,24 +1,19 @@
 # coding_first_web_cli
 
-## Project setup
+## 项目初始化
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 项目开发部署到本地
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
+### 项目打包
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
+### 个性化设置
 See [Configuration Reference](https://cli.vuejs.org/config/).
