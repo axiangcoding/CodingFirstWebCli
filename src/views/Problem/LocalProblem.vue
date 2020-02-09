@@ -2,7 +2,7 @@
   <div class="problem-body">
     <el-card class="box-card">
       <div slot="header">
-        题目列表
+        本地题库
       </div>
       <ProblemComponent></ProblemComponent>
     </el-card>
@@ -33,7 +33,7 @@ export default {
   padding-top: 0;
   margin: 0;
   margin-bottom: 20px;
-  font-family: 微软雅黑, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 微软雅黑, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .box-card {

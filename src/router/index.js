@@ -30,9 +30,9 @@ const routes = [
     }
   },
   {
-    path: '/Problem',
-    name: 'Problem',
-    component: () => import('@/views/Problem/Problem'),
+    path: '/LocalProblem',
+    name: 'LocalProblem',
+    component: () => import('@/views/Problem/LocalProblem'),
     meta: {
       keepAlive: false
     }

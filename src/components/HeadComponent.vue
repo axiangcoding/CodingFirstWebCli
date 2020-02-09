@@ -1,115 +1,117 @@
 <template>
-  <div class="header">
-    <div class="head-box">
-      <el-menu class="el-menu"
-               mode="horizontal"
-               background-color="#f5f5f5"
-               active-text-color="#409EFF"
-               text-color="#333333"
-               :default-active="activeIndex"
-               @select="handleMenuSelect"
-               router>
-        <el-menu-item class="logo-menu-item">
-          <el-image class="logo-pic"
-                    :src="picSrc"
-                    fit="fit"></el-image>
-        </el-menu-item>
-        <el-menu-item index="Index">主 页</el-menu-item>
-        <el-menu-item index="Problem">题 目</el-menu-item>
-        <el-menu-item index="Status">评 测</el-menu-item>
-        <el-menu-item index="Discuss">
-          <span>讨论</span>
-        </el-menu-item>
-        <el-menu-item index="Challenge">挑战模式</el-menu-item>
-        <!-- <el-menu-item index="VideoLesson">视频课堂</el-menu-item> -->
-        <el-menu-item index="Mall">商 城</el-menu-item>
+
+  <div class="head-box">
+    <el-menu class="el-menu"
+             mode="horizontal"
+             background-color="#f5f5f5"
+             active-text-color="#409EFF"
+             text-color="#333333"
+             :default-active="activeIndex"
+             @select="handleMenuSelect"
+             router>
+      <el-menu-item index="Index"><i class="el-icon-s-home"></i>主 页</el-menu-item>
+      <el-submenu index="ProblemSub">
+        <template slot="title"><i class="el-icon-menu"></i>题 库</template>
+        <el-menu-item index="LocalProblem">本地题库</el-menu-item>
+        <el-menu-item index="VJudgeProblem">VJudge题库</el-menu-item>
+
+      </el-submenu>
+      <el-menu-item index="Status"><i class="el-icon-s-order"></i>评 测</el-menu-item>
+      <el-submenu index="ContestSub">
+        <template slot="title"><i class="el-icon-s-platform"></i>比 赛</template>
+        <el-menu-item index="Contest?kind=0">练习</el-menu-item>
+        <el-menu-item index="Contest?kind=1">积分</el-menu-item>
+        <el-menu-item index="Contest?kind=2">趣味</el-menu-item>
+        <el-menu-item index="Contest?kind=3">正式</el-menu-item>
+        <el-menu-item index="Contest?kind=5">自定义</el-menu-item>
+      </el-submenu>
+      <!-- <el-submenu index="">
+        <template slot="title"><i class="el-icon-menu"></i>考 试</template>
+        <el-menu-item index="1">编程题考试</el-menu-item>
+      </el-submenu> -->
+      <el-submenu index="RankSub">
+        <template slot="title"><i class="el-icon-s-data"></i>排 名</template>
+        <el-menu-item index="MainRank">积分榜</el-menu-item>
         <el-menu-item index="HonorRank">荣誉榜</el-menu-item>
-        <el-submenu index="ContestSub">
-          <template slot="title">比 赛</template>
-          <el-menu-item index="Contest?kind=0">练习</el-menu-item>
-          <el-menu-item index="Contest?kind=1">积分</el-menu-item>
-          <el-menu-item index="Contest?kind=2">趣味</el-menu-item>
-          <el-menu-item index="Contest?kind=3">正式</el-menu-item>
-          <el-menu-item index="Contest?kind=5">自定义</el-menu-item>
-        </el-submenu>
-        <el-submenu index="RankSub">
-          <template slot="title">排 名</template>
-          <el-menu-item index="MainRank">积分榜</el-menu-item>
-          <el-menu-item index="9-1">荣誉榜</el-menu-item>
-          <el-menu-item index="9-2">活跃榜</el-menu-item>
-          <el-menu-item index="9-3">现役榜</el-menu-item>
-          <el-menu-item index="9-4">组队榜</el-menu-item>
-        </el-submenu>
-        <el-menu-item v-if="this.isAdmin"
-                      index="Admin">管理员</el-menu-item>
-        <!-- 方便调试暂时设置，正式部署时需要去除 -->
-        <!-- <el-menu-item index="Test">测试</el-menu-item> -->
-        <el-menu-item class="el-menu-item-right"
-                      v-if="!this.isLogin"
-                      index="Login">登录</el-menu-item>
-        <el-menu-item class="el-menu-item-right"
-                      v-if="!this.isLogin"
-                      index="Register">注册</el-menu-item>
-        <div class="menu-rightside">
-          <el-button class="clockin-button"
-                     type="primary"
-                     v-if="this.isLogin && !this.isClockIn"
-                     size="medium"
-                     @click="clockin">点我签到</el-button>
-          <el-button class="clockin-button"
-                     type="info"
-                     v-if="this.isLogin && this.isClockIn"
-                     size="medium"
-                     @click="toClockIn">你已签到</el-button>
-          <el-dropdown class="el-menu-item-userinfo"
-                       v-if="this.isLogin"
-                       @command="handleCommand">
-            <router-link to="User"
-                         class="router-link">
-              <el-avatar :size="25"
-                         :src="$store.getters.getAvatarUrl"></el-avatar>
-              <el-badge is-dot
-                        class="badge-dot"
-                        v-if="unReadMsgCount > 0">
-                <i>{{$store.getters.getUsername}}</i>
-                <i class="el-icon-arrow-down"></i>
-              </el-badge>
-              <i v-else>
-                {{$store.getters.getUsername}}
-                <i class="el-icon-arrow-down"></i>
-              </i>
-            </router-link>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="toMessage">
-                <el-badge :value="unReadMsgCount"
-                          :max="99"
-                          class="mark"
-                          v-if="this.unReadMsgCount > 0">
-                  <span>
-                    <i class="el-icon-message">消息</i>
-                  </span>
-                </el-badge>
-                <span v-else>
+        <el-menu-item index="9-2">活跃榜</el-menu-item>
+        <el-menu-item index="9-3">现役榜</el-menu-item>
+        <el-menu-item index="9-4">组队榜</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="Challenge"><i class="el-icon-star-on"></i>挑战模式</el-menu-item>
+      <el-menu-item index="Discuss"><i class="el-icon-s-comment"></i>讨 论</el-menu-item>
+      <!-- <el-menu-item index="VideoLesson">视频课堂</el-menu-item> -->
+      <el-menu-item index="Mall"><i class="el-icon-s-shop"></i>商 城</el-menu-item>
+      <el-menu-item v-if="this.isAdmin"
+                    index="Admin">管理员</el-menu-item>
+      <!-- 方便调试暂时设置，正式部署时需要去除 -->
+      <!-- <el-menu-item index="Test">测试</el-menu-item> -->
+      <el-menu-item class="el-menu-item-right"
+                    v-if="!this.isLogin"
+                    index="Login">登录</el-menu-item>
+      <el-menu-item class="el-menu-item-right"
+                    v-if="!this.isLogin"
+                    index="Register">注册</el-menu-item>
+      <div class="menu-rightside">
+        <el-button class="clockin-button"
+                   type="primary"
+                   v-if="this.isLogin && !this.isClockIn"
+                   size="medium"
+                   round
+                   @click="clockin">点我签到</el-button>
+        <el-button class="clockin-button"
+                   type="info"
+                   v-if="this.isLogin && this.isClockIn"
+                   size="medium"
+                   round
+                   @click="toClockIn">你已签到</el-button>
+        <el-dropdown class="el-menu-item-userinfo"
+                     v-if="this.isLogin"
+                     @command="handleCommand">
+          <router-link to="User"
+                       class="router-link">
+            <el-avatar :size="25"
+                       :src="$store.getters.getAvatarUrl"></el-avatar>
+            <el-badge is-dot
+                      class="badge-dot"
+                      v-if="unReadMsgCount > 0">
+              <i>{{$store.getters.getUsername}}</i>
+              <i class="el-icon-arrow-down"></i>
+            </el-badge>
+            <i v-else>
+              {{$store.getters.getUsername}}
+              <i class="el-icon-arrow-down"></i>
+            </i>
+          </router-link>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="toMessage">
+              <el-badge :value="unReadMsgCount"
+                        :max="99"
+                        class="mark"
+                        v-if="this.unReadMsgCount > 0">
+                <span>
                   <i class="el-icon-message">消息</i>
                 </span>
-              </el-dropdown-item>
-              <el-dropdown-item command="toEditUser"
-                                divided>
-                <i class="el-icon-edit">编辑</i>
-              </el-dropdown-item>
-              <el-dropdown-item command="toVerify"
-                                divided>
-                <i class="el-icon-document-checked">认证</i>
-              </el-dropdown-item>
-              <el-dropdown-item command="logout"
-                                divided>
-                <i class="el-icon-circle-close">退出</i>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </el-menu>
-    </div>
+              </el-badge>
+              <span v-else>
+                <i class="el-icon-message">消息</i>
+              </span>
+            </el-dropdown-item>
+            <el-dropdown-item command="toEditUser"
+                              divided>
+              <i class="el-icon-edit">编辑</i>
+            </el-dropdown-item>
+            <el-dropdown-item command="toVerify"
+                              divided>
+              <i class="el-icon-document-checked">认证</i>
+            </el-dropdown-item>
+            <el-dropdown-item command="logout"
+                              divided>
+              <i class="el-icon-switch-button">退出</i>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    </el-menu>
   </div>
 </template>
 
@@ -227,13 +229,8 @@ export default {
 </script>
 
 <style scoped >
-.header {
-  width: 100%;
-}
-
 .head-box {
   width: 90%;
-  height: 100%;
   margin: auto;
 }
 

@@ -6,9 +6,9 @@
     <div class="link-box">
       <el-link @click="goReportBug">BUG反馈</el-link> | <el-link>FAQ</el-link> |
       <el-link>开发团队</el-link> | <el-link>加入我们</el-link> |
-      <el-link>闽ICP备xxxxxxxx号-1</el-link>
+      <el-link>闽ICP备19024997号</el-link>
     </div>
-    <span class="power-span">Power by ©515项目组-FJUTOJ</span>
+    <span class="power-span">Power by ©FJUT-OJ项目组</span>
     <BugReport :dialogVisible="showBugReport"
                @visiable="changeVisiable"></BugReport>
   </div>

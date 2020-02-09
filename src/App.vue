@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header height="61px">
+      <el-header>
 
         <Head></Head>
       </el-header>
@@ -84,7 +84,7 @@ export default {
   width: 100%;
   z-index: 2000;
   background-color: #f5f5f5;
-  box-shadow: 5px 5px 5px #888888;
+  // box-shadow: 5px 5px 5px #888888;
 }
 
 .el-main {

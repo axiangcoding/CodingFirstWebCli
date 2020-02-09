@@ -16,27 +16,3 @@
   margin: 0;
   text-align: left;
 }
-
-/* 菜单*/
-.el-menu {
-  font-size: 14px;
-}
-
-/* 菜单项 */
-.el-menu-item {
-  width: 90px;
-  font-size: 14px;
-  border-right: #eeeeee 1px solid;
-}
-
-/* hover在菜单项上 */
-.el-menu-item:hover {
-  /* font-weight: bolder; */
-}
-
-/* 水平菜单的子菜单 */
-.el-menu--horizontal > .el-submenu .el-submenu__title {
-  width: 90px;
-  border-right: 1px solid #eeeeee;
-  font-size: 14px;
-}

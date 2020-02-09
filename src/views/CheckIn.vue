@@ -80,7 +80,6 @@ export default {
     },
     // add by axiang [20190613] 获取签到列表
     async getUserAllClockInList () {
-      this.logger.ms(this.getUserAllClockInList.className, '')
       let params = new URLSearchParams()
       params.append('username', this.username)
       params.append('pageNum', 1)
@@ -116,7 +115,6 @@ export default {
           ip: dataClockIn[i].ipAddress
         })
       }
-      this.logger.me(this.getUserAllClockInList.className, '')
     }
   }
 }
