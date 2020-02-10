@@ -1,7 +1,7 @@
 /* 榜单的卡片头部 */
 #topborder .el-card__header {
-  background-color: burlywood;
-  color: red;
+  /* background-color: burlywood; */
+  /* color: red; */
 }
 
 #problem-card .el-card__header {

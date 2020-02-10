@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 const store = require('../store/index')
 
 axios.defaults.baseURL = process.env.VUE_APP_APIURL
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 20000
 axios.interceptors.response.use(
   res => {
     return res
