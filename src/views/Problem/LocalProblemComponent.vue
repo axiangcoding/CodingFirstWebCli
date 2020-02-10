@@ -89,7 +89,6 @@ export default {
     }
   },
   mounted () {
-    // 如果不是显示比赛界面
     this.getProlem()
     this.getProblemTags()
   },

@@ -1,5 +1,18 @@
 <template>
   <div>
+    <el-card id="topborder"
+             v-show="this.$store.getters.getIsLogin">
+      <div slot="header">
+        我的
+      </div>
+      <div>
+        亲爱的 {{this.$store.getters.getUsername}}：
+        <br />您有
+        <el-link type="danger">{{this.$store.getters.getUnReadMsgCount}}</el-link>
+        条站内消息未读，今天你尝试了{{todayTry}}题，AC了 {{todayAc}} 题，真是美好的一天呢
+      </div>
+
+    </el-card>
     <el-card id="topborder">
       <div slot="header">
         <span class="title-text">积分榜 Top10</span>
@@ -83,6 +96,8 @@
 export default {
   data () {
     return {
+      todayAc: 0,
+      todayTry: 0,
       acTop: [],
       acbTop: [],
       ratingTop: [],
@@ -135,10 +150,10 @@ export default {
   line-height: 14px;
 }
 
-/* .title-text {
+.title-text {
   color: red;
   text-shadow: 0px 0px 5px gold;
-} */
+}
 
 .showmore-link {
   float: right;

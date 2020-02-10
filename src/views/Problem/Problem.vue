@@ -2,26 +2,40 @@
   <div class="problem-body">
     <el-card class="box-card">
       <div slot="header">
-        本地题库
+        <div v-if="this.$route.name === 'LocalProblem'">本地题库</div>
+        <div v-else>Virtual Judge题库</div>
       </div>
-      <ProblemComponent></ProblemComponent>
+
+      <LocalProblemComponent v-if="this.$route.name === 'LocalProblem'"></LocalProblemComponent>
+      <VJProblemComponent v-else></VJProblemComponent>
     </el-card>
   </div>
 </template>
 
 <script>
-import ProblemComponent from './ProblemComponent'
+import LocalProblemComponent from './LocalProblemComponent'
+import VJProblemComponent from './VJProblemComponent'
+
 export default {
   components: {
-    ProblemComponent
+    LocalProblemComponent,
+    VJProblemComponent
   },
   data () {
-    return {}
+    return {
+
+    }
   },
-  created () { },
+  created () {
+  },
   mounted () {
+
   },
-  methods: {}
+  beforeDestroy () {
+
+  },
+  methods: {
+  }
 
 }
 </script>

@@ -4,24 +4,24 @@
       <Carousel></Carousel>
     </div>
     <div class="home-info-body">
-      <HomeInfo></HomeInfo>
+      <HomeLeft></HomeLeft>
     </div>
     <div class="border-body">
-      <Border></Border>
+      <HomeRight></HomeRight>
     </div>
   </div>
 </template>
 
 <script>
-import Carousel from '@/views/Home/CarouselGraph'
-import HomeInfo from '@/views/Home/HomeInfo'
-import Border from '@/views/Home/Border'
+import Carousel from './CarouselGraph'
+import HomeRight from './HomeRight'
+import HomeLeft from './HomeLeft'
 
 export default {
   components: {
     Carousel,
-    HomeInfo,
-    Border
+    HomeRight,
+    HomeLeft
   }
 
 }

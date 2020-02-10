@@ -13,8 +13,7 @@
       <el-submenu index="ProblemSub">
         <template slot="title"><i class="el-icon-menu"></i>题 库</template>
         <el-menu-item index="LocalProblem">本地题库</el-menu-item>
-        <el-menu-item index="VJudgeProblem">VJudge题库</el-menu-item>
-
+        <el-menu-item index="VJudgeProblem">Virtual Judge题库</el-menu-item>
       </el-submenu>
       <el-menu-item index="Status"><i class="el-icon-s-order"></i>评 测</el-menu-item>
       <el-submenu index="ContestSub">

@@ -7,8 +7,8 @@ const routes = [
   {
     path: '/Index',
     alias: '/',
-    name: 'Home',
-    component: () => import('@/views/Home'),
+    name: 'Index',
+    component: () => import('@/views/Index/index.vue'),
     meta: {
       keepAlive: true
     }
@@ -32,7 +32,15 @@ const routes = [
   {
     path: '/LocalProblem',
     name: 'LocalProblem',
-    component: () => import('@/views/Problem/LocalProblem'),
+    component: () => import('@/views/Problem/Problem'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/VJudgeProblem',
+    name: 'VJudgeProblem',
+    component: () => import('@/views/Problem/Problem'),
     meta: {
       keepAlive: false
     }

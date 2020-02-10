@@ -11,7 +11,7 @@
         题目推荐
       </div>
       <div v-if="this.$store.getters.getIsLogin && loaded">
-        <span class="info-font">亲爱的 {{this.$store.getters.getUsername}}，根据智能教练敢敢的预测，您可能会对以下题目感兴趣，要不要试试？</span>
+        <span class="info-font">根据假机器人敢敢的预测，您可能会对以下题目感兴趣，要不要试试？</span>
         <br />
         <div v-for="item in recommendProblems"
              :key="item">

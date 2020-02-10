@@ -3,10 +3,8 @@
     <div class="head">
       <div class="head-content">
         <p>
-          <a
-            href="javascript:;"
-            v="Mall"
-          >商城</a>
+          <a href="javascript:;"
+             v="Mall">商城</a>
         </p>
         <span class="pointer">
           <i class="el-icon-arrow-right"></i>
@@ -17,35 +15,25 @@
     </div>
     <div class="product">
       <div class="show-img">
-        <div
-          class="img-box"
-          @mouseenter="showArrow"
-          @mouseleave="hideArrow"
-        >
-          <img
-            ref="showImg"
-            class="img-product"
-            :src="dataMallInfo.pictureUrl.split(';')[0]"
-          />
-          <span
-            class="arrow-left"
-            ref="arrowLeft"
-          >
+        <div class="img-box"
+             @mouseenter="showArrow"
+             @mouseleave="hideArrow">
+          <img ref="showImg"
+               class="img-product"
+               :src="dataMallInfo.pictureUrl.split(';')[0]" />
+          <span class="arrow-left"
+                ref="arrowLeft">
             <i class="el-icon-arrow-left"></i>
           </span>
-          <span
-            class="arrow-right"
-            ref="arrowRight"
-          >
+          <span class="arrow-right"
+                ref="arrowRight">
             <i class="el-icon-arrow-right"></i>
           </span>
         </div>
         <div class="img-nav">
           <ul class="img">
-            <li
-              v-for="item in dataMallInfo.pictureUrl.split(';')"
-              :key="item"
-            >
+            <li v-for="item in dataMallInfo.pictureUrl.split(';')"
+                :key="item">
               <img :src="item">
             </li>
           </ul>
@@ -60,29 +48,23 @@
         <div class="product-number">
           <p>数量：</p>
           <div class="num-counter">
-            <a
-              href="javascript:;"
-              class="decrease-btn"
-              @click="decreaseNumber"
-            >
+            <a href="javascript:;"
+               class="decrease-btn"
+               @click="decreaseNumber">
               <i class="el-icon-minus"></i>
             </a>
             <span class="product-number">
-              <input
-                type="text"
-                value="1"
-                class="input-number"
-                v-model="num"
-                @change="handleChange"
-                :min="1"
-                :max="dataMallInfo.buyLimit"
-              >
+              <input type="text"
+                     value="1"
+                     class="input-number"
+                     v-model="num"
+                     @change="handleChange"
+                     :min="1"
+                     :max="dataMallInfo.buyLimit">
             </span>
-            <a
-              href="javascript:;"
-              class="plus-btn"
-              @click="plusNumber"
-            >
+            <a href="javascript:;"
+               class="plus-btn"
+               @click="plusNumber">
               <i class="el-icon-plus"></i>
             </a>
           </div>
@@ -95,16 +77,12 @@
           </ul>
         </div>
         <div class="buy-operation">
-          <a
-            @click="purchase"
-            class="buy-btn"
-            href="javascript:;"
-          >立即购买</a>
-          <a
-            @click="intoShopcart"
-            class="shopcart-btn"
-            href="javascript:;"
-          >
+          <a @click="purchase"
+             class="buy-btn"
+             href="javascript:;">立即购买</a>
+          <a @click="intoShopcart"
+             class="shopcart-btn"
+             href="javascript:;">
             <i class="el-icon-shopping-cart-full"></i>
             加入购物车
           </a>
@@ -113,27 +91,21 @@
       <div class="show-detail">
         <h2>商品详情</h2>
         <el-divider> </el-divider>
-        <div
-          class="product-detail"
-          v-html="dataMallInfo.description"
-        >
+        <div class="product-detail"
+             v-html="dataMallInfo.description">
         </div>
       </div>
     </div>
-    <div
-      class="scroll-side"
-      ref="scrollSide"
-    >
+    <div class="scroll-side"
+         ref="scrollSide">
       <div class="scroll-item">
         <span>100%<br>正品</span>
       </div>
       <div class="scroll-item">
         <span>七天无理由退货</span>
       </div>
-      <div
-        class="scroll-item cart"
-        @click="showShopcart"
-      >
+      <div class="scroll-item cart"
+           @click="showShopcart">
         <span>
           <i class="el-icon-shopping-cart-full"></i>
           <span class="car">购物车
@@ -146,11 +118,9 @@
         <span>客服</span>
       </div>
     </div>
-    <div
-      class="shopcart"
-      ref="shopcart"
-      @mouseleave="hideShopcart"
-    >
+    <div class="shopcart"
+         ref="shopcart"
+         @mouseleave="hideShopcart">
       <p class="shopcart-title">购物车</p>
       <ul class="shopcart-list">
         <li class="item-info">
@@ -160,29 +130,23 @@
           <a class="item-name">{{dataMallInfo.name}}</a>
           <p class="item-price">{{dataMallInfo.cost}} ACB</p>
           <div class="item-num num-counter">
-            <a
-              href="javascript:;"
-              class="decrease-btn"
-              @click="shopcartDecreaseNumber"
-            >
+            <a href="javascript:;"
+               class="decrease-btn"
+               @click="shopcartDecreaseNumber">
               <i class="el-icon-minus"></i>
             </a>
             <span class="product-number">
-              <input
-                type="text"
-                value="1"
-                class="input-number"
-                v-model="this.shopcartNum"
-                @change="handleChange"
-                :min="1"
-                :max="dataMallInfo.buyLimit"
-              >
+              <input type="text"
+                     value="1"
+                     class="input-number"
+                     v-model="this.shopcartNum"
+                     @change="handleChange"
+                     :min="1"
+                     :max="dataMallInfo.buyLimit">
             </span>
-            <a
-              href="javascript:;"
-              class="plus-btn"
-              @click="shopcartPlusNumber"
-            >
+            <a href="javascript:;"
+               class="plus-btn"
+               @click="shopcartPlusNumber">
               <i class="el-icon-plus"></i>
             </a>
           </div>
@@ -198,11 +162,9 @@
           <p class="price-title">合计： </p>
           <p class="total-price">{{ dataMallInfo.cost }} ACB</p>
         </span>
-        <a
-          @click="purchase"
-          class="settle-btn"
-          href="javascript:;"
-        >立即结算</a>
+        <a @click="purchase"
+           class="settle-btn"
+           href="javascript:;">立即结算</a>
       </div>
     </div>
   </div>
