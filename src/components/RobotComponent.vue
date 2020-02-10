@@ -15,11 +15,7 @@
             <el-button v-if="isTalking"
                        type="warning"
                        size="mini"
-                       @click="this.stopTalking">别跳了，给👴爪巴</el-button>
-            <el-button v-else
-                       type="warning"
-                       size="mini"
-                       @click="this.startTalking">“我生气了”</el-button>
+                       @click="this.stopTalking">别跳了，挡着我看题了</el-button>
           </div>
 
         </el-popover>
@@ -136,6 +132,7 @@ export default {
       if (this.time) {
         clearInterval(this.time)
       }
+      // 进入对应的页面弹出对话框
       switch (this.$route.name) {
         case 'Index':
           this.message = '欢迎来到<strong>一码当先在线编程系统</strong>，我是假机器人敢敢，我偶尔会冒泡说两句话哦。'
