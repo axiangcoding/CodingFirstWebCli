@@ -29,7 +29,7 @@
                  icon="el-icon-s-grid"
                  @click="handleBackToAll">查看全部</el-button>
     </div>
-    <el-pagination layout="total, prev, pager, next, jumper"
+    <el-pagination layout="prev, pager, next, jumper"
                    :current-page="this.currentPage"
                    @current-change="switchPage"
                    :total="this.total"
@@ -67,6 +67,12 @@
                        prop="belongToOj"
                        min-width="20%"></el-table-column>
     </el-table>
+    <el-pagination class="bottom-pagination"
+                   layout="prev, pager, next, jumper"
+                   :current-page="this.currentPage"
+                   @current-change="switchPage"
+                   :total="this.total"
+                   :page-size="this.pageSize"></el-pagination>
   </div>
 </template>
 
@@ -214,7 +220,12 @@ export default {
 }
 
 .el-pagination {
-  float: left;
+  /* float: left; */
+}
+
+.bottom-pagination {
+  float: right;
+  margin-bottom: 10px;
 }
 
 .success-row {

@@ -43,7 +43,7 @@
                  icon="el-icon-s-grid"
                  @click="handleBackToAll">查看全部</el-button>
     </div>
-    <el-pagination layout="total, prev, pager, next, jumper"
+    <el-pagination layout="prev, pager, next, jumper"
                    :current-page="this.currentPage"
                    @current-change="switchPage"
                    :total="this.total"
@@ -102,6 +102,12 @@
           )}}</span></template>
       </el-table-column>
     </el-table>
+    <el-pagination class="bottom-pagination"
+                   layout="prev, pager, next, jumper"
+                   :current-page="this.currentPage"
+                   @current-change="switchPage"
+                   :total="this.total"
+                   :page-size="this.pageSize"></el-pagination>
   </div>
 </template>
 
@@ -204,7 +210,7 @@ export default {
       } else if (str === 'Presentation Error') {
         return 'orange-font'
       } else if (str === 'Pending...' || str === 'Judging...') {
-        return 'gray-font'
+        return 'grey-font'
       } else if (str === 'Submit Error' || str.substring(0, 5) === 'Score') {
         return 'blue-font'
       } else {
@@ -284,8 +290,8 @@ export default {
   float: left;
 }
 
-.el-pagination {
-  float: left;
+.bottom-pagination {
+  float: right;
 }
 
 .green-font {

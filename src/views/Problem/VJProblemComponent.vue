@@ -1,8 +1,6 @@
 <template>
   <div class="problem-body">
     <div class="function-bar">
-      <el-checkbox class="bar-search-item"
-                   disabled>我的收藏</el-checkbox>
       <el-select v-model="searchOJId"
                  class="bar-search-item-select"
                  size="mini"
@@ -59,6 +57,13 @@
       <el-table-column label="更新时间"
                        min-width="30%">
         <template slot-scope="scope">
+          <i class="el-icon-success"
+             v-if="scope.row.status===0"></i>
+          <i class="el-icon-loading"
+             v-else-if="scope.row.status===1"></i>
+          <i class="el-icon-warning"
+             v-else></i>
+
           {{formatterDate(scope.row.triggerTime)}}
         </template>
       </el-table-column>
@@ -70,6 +75,12 @@
       </el-table-column>
 
     </el-table>
+    <el-pagination class="bottom-pagination"
+                   layout="prev, pager, next"
+                   :current-page="this.currentPage"
+                   @current-change="switchPage"
+                   :total="this.total"
+                   :page-size="this.pageSize"></el-pagination>
   </div>
 </template>
 
@@ -122,6 +133,7 @@ export default {
       params.append('pageSize', this.pageSize)
       params.append('OJId', this.searchOJId)
       params.append('category', 'all')
+      params.append('probNum', this.searchProId)
       params.append('title', this.searchTitle)
       params.append('source', this.searchResource)
       let dataProblemsByPage = await this.$http
@@ -129,12 +141,32 @@ export default {
         .catch(() => {
           this.loading = false
         })
-      if (dataProblemsByPage.code !== 10000) {
+      if (dataProblemsByPage.code === 10000) {
+        this.tableData = dataProblemsByPage.datas[0].data
+        this.total = dataProblemsByPage.datas[0].recordsTotal
+        this.$notify({
+          title: '与Virtual Judge同步成功',
+          duration: 2000,
+          type: 'success',
+          position: 'top-left',
+          dangerouslyUseHTMLString: true,
+          offset: 40,
+          showClose: false,
+          message: '同步时间为：<strong>' + formatterDate(dataProblemsByPage.datas[1]) + '</strong>'
+        })
+      } else {
         this.$message.error('题目获取失败！')
+        this.$notify({
+          title: '与Virtual Judge同步失败',
+          duration: 2000,
+          type: 'error',
+          position: 'top-left',
+          dangerouslyUseHTMLString: true,
+          offset: 40,
+          showClose: false,
+          message: '同步时间为：<strong>' + formatterDate(dataProblemsByPage.datas[1]) + '</strong><br/>可能原因：Virtual Judge挂了'
+        })
       }
-      this.tableData = dataProblemsByPage.datas[0].data
-      this.total = dataProblemsByPage.datas[0].recordsTotal
-      this.getProblemTagRecords()
       this.loading = false
     },
     // 获取用户解答状态
@@ -217,6 +249,11 @@ export default {
   margin-right: 15px;
 }
 
+.bottom-pagination {
+  float: right;
+  margin-bottom: 10px;
+}
+
 .success-row {
   font-weight: bold;
   color: green;
@@ -230,5 +267,13 @@ export default {
 .warning-row {
   font-weight: bold;
   color: blue;
+}
+
+.el-icon-success {
+  color: green;
+}
+
+.el-icon-warning {
+  color: red;
 }
 </style>

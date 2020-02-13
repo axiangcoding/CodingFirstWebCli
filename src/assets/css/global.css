@@ -17,7 +17,9 @@
   text-align: left;
 }
 
+/* 弹出框样式 */
 .el-popover {
+  width: auto;
   background-color: #f5f5f5;
   border: 2px #b3abab solid;
 }

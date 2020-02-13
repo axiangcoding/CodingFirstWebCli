@@ -38,36 +38,36 @@
                  class="problem-detail-card">
           <div slot="header">题目描述</div>
           <div class="detail-card-body"
-               v-html="this.dataProblemMain.description?this.dataProblemMain.description:'没有描述'"></div>
+               v-html="this.dataProblemMain.description?this.dataProblemMain.description:'【没有描述】'"></div>
         </el-card>
         <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">输入</div>
           <div class="detail-card-body"
-               v-html="this.dataProblemMain.input?this.dataProblemMain.input:'没有输入'"></div>
+               v-html="this.dataProblemMain.input?this.dataProblemMain.input:'【没有输入】'"></div>
         </el-card>
         <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">输出</div>
           <div class="detail-card-body"
-               v-html="this.dataProblemMain.output?this.dataProblemMain.output:'没有输出'"></div>
+               v-html="this.dataProblemMain.output?this.dataProblemMain.output:'【没有输出】'"></div>
         </el-card>
         <div v-for="item in this.dataProblemSamples"
              :key="item">
           <el-card id="problem-card"
                    class="problem-detail-card">
-            <div slot="header">输入样例 {{item.caseOrder+1}}</div>
+            <div slot="header">输入样例 {{item.caseOrder===0?null:item.caseOrder+1}}</div>
             <div class="detail-card-body"
-                 v-html="item.inputCase?item.inputCase:'没有输入样例'"></div>
+                 v-html="item.inputCase?item.inputCase:'【没有输入样例】'"></div>
           </el-card>
           <el-card id="problem-card"
                    class="problem-detail-card">
-            <div slot="header">输出样例 {{item.caseOrder+1}}</div>
+            <div slot="header">输出样例 {{item.caseOrder===0?null:item.caseOrder+1}}</div>
             <div class="detail-card-body"
-                 v-html="item.outputCase?item.outputCase:'没有输出样例'"></div>
+                 v-html="item.outputCase?item.outputCase:'【没有输出样例】'"></div>
           </el-card>
         </div>
-        <el-card id="problem-card"
+        <!-- <el-card id="problem-card"
                  class="problem-detail-card">
           <div slot="header">题目统计信息
             <el-link type="info"
@@ -79,7 +79,7 @@
             <div class="echarts-box"
                  id="acuser-echarts"></div>
           </div>
-        </el-card>
+        </el-card> -->
       </el-scrollbar>
     </div>
 

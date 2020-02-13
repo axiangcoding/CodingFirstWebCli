@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login-body">
     <el-card v-loading="loading"
              :body-style="{ padding: '0px' }"
              class="box-card">
@@ -99,7 +99,6 @@ export default {
       if (dataGetLogin.code !== 10000) {
         this.$message.error(dataGetLogin.msg)
         this.loading = false
-        this.logger.e('登录失败')
       } else {
         let username = dataGetLogin.datas[0]
         let token = dataGetLogin.datas[1]
@@ -108,7 +107,15 @@ export default {
         this.$store.commit('setToken', token)
         this.$store.commit('setAvatarUrl', avatarUrl)
         this.$store.commit('setIsLogin', true)
-        this.$message.success(dataGetLogin.msg)
+        this.$notify.success({
+          title: '登录成功',
+          duration: 5000,
+          position: 'top-left',
+          // dangerouslyUseHTMLString: true,
+          offset: 40,
+          showClose: false,
+          message: '欢迎回来，亲爱的 ' + username + ' !'
+        })
         this.checkIsClockIn()
         this.checkUnReadMsgCount()
         this.loading = false
@@ -143,18 +150,16 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  width: 850px;
-  min-height: 380px;
+.login-body {
+  width: 90%;
   margin: auto;
-  padding: 0;
+  min-height: 500px;
 }
 
-.login {
-  width: 100%;
-  height: 700px;
-  padding-top: 5%;
-  margin: 0;
+.box-card {
+  width: 850px;
+  margin: auto;
+  margin-top: 40px;
 }
 
 .login-box {

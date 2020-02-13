@@ -189,7 +189,9 @@ export default {
           this.message = '<strong>什么是本地题库？</strong><br/>本地题库指的是所有题目数据及评测样例均保存在本地服务器中'
           break
         case 'VJudgeProblem':
-          this.message = '<strong>什么是Virtual Judge题库？</strong><br/>Virtual Judge题库指的是我们从Virtual Judge平台中获取题目，所有内容均为公开数据'
+          this.message = '<strong>什么是Virtual Judge题库？</strong>' +
+            '<br/>Virtual Judge题库指的是我们从Virtual Judge平台中获取题目，所有内容均为公开数据' +
+            '<br/><a href="https://vjudge.net" target="_blank">戳我去VJ官网</a>'
           break
         default:
           this.message = '好无聊啊，我什么时候才能变聪明起来'
