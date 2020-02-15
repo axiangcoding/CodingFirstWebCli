@@ -76,7 +76,7 @@
 
         </template>
       </el-table-column>
-      <el-table-column label="语言"
+      <el-table-column label="代码"
                        min-width="8%">
         <template slot-scope="scope">
           <el-link type="primary"
@@ -184,10 +184,30 @@ export default {
       this.$router.push({ path: '/Submit', query: { pid: val } })
     },
     toCodeView (val) {
-      this.$router.push({ path: '/CodeView', query: { id: val } })
+      if (this.$store.getters.getIsLogin) {
+        this.$router.push({ path: '/CodeView', query: { id: val } })
+      } else {
+        this.$notify({
+          title: '提示',
+          message: '登录后才能查看这个评测的解答详情哦',
+          type: 'warning',
+          offset: 100,
+          duration: 3000
+        })
+      }
     },
     toUser (val) {
-      this.$router.push({ path: '/User', query: { username: val } })
+      if (this.$store.getters.getIsLogin) {
+        this.$router.push({ path: '/User', query: { username: val } })
+      } else {
+        this.$notify({
+          title: '提示',
+          message: '登录后才能查看这个用户的主页哦',
+          type: 'warning',
+          offset: 100,
+          duration: 3000
+        })
+      }
     },
     switchResultColor (str) {
       if (str === 'Accepted' || str === 'Score 100') {
@@ -227,7 +247,7 @@ export default {
       params.append('result', this.searchResult)
       params.append('language', this.searchLanguage)
       let dataStatus = await this.$http
-        .get('/judge_status/list/get', params)
+        .get('/judge_status/list', params)
         .catch(() => {
           this.loading = false
         })
@@ -269,29 +289,22 @@ export default {
 }
 
 .bar-search-item-input {
-  float: left;
-  width: 15%;
+  width: 16%;
   margin-right: 20px;
 }
 
 .bar-search-item-select {
-  float: left;
   width: 15%;
   margin-right: 20px;
 }
 
 .bar-search-item {
-  float: left;
-  /* width: 15%; */
   margin-right: 20px;
-}
-
-.search-button {
-  float: left;
 }
 
 .bottom-pagination {
   float: right;
+  margin-bottom: 10px;
 }
 
 .green-font {

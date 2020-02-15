@@ -36,7 +36,7 @@
         <el-menu-item index="9-3">现役榜</el-menu-item>
         <el-menu-item index="9-4">组队榜</el-menu-item>
       </el-submenu>
-      <el-menu-item index="Challenge"><i class="el-icon-star-on"></i>挑战模式</el-menu-item>
+      <el-menu-item index="Challenge" v-show="this.isLogin"><i class="el-icon-star-on"></i>挑战模式</el-menu-item>
       <el-menu-item index="Discuss"><i class="el-icon-s-comment"></i>讨 论</el-menu-item>
       <!-- <el-menu-item index="VideoLesson">视频课堂</el-menu-item> -->
       <el-menu-item index="Mall"><i class="el-icon-s-shop"></i>商 城</el-menu-item>
@@ -172,7 +172,17 @@ export default {
       this.$http.post('/user/logout', params)
       this.$store.commit('LOGOUT')
       this.toIndex()
-      this.$message.warning('您已退出登录！')
+      // this.$message.warning('您已退出登录！')
+      this.$notify.warning({
+        title: '您已退出登录',
+        duration: 2000,
+        type: 'success',
+        position: 'top-left',
+        dangerouslyUseHTMLString: true,
+        offset: 40,
+        showClose: false,
+        message: '欢迎继续回来刷题哦'
+      })
     },
     honorRank () {
       this.$router.push({ path: 'HonorRank' })

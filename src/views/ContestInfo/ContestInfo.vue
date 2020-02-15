@@ -1,14 +1,10 @@
 <template>
   <div class="contestinfo-body">
     <h1>{{contestInfo.title}}</h1>
-    <el-tabs
-      type="border-card"
-      v-model="activeTab"
-    >
-      <el-tab-pane
-        label="主页"
-        name="1"
-      >
+    <el-tabs type="border-card"
+             v-model="activeTab">
+      <el-tab-pane label="主页"
+                   name="1">
         <div class="detail-box">
           比赛时间：
           {{formatterDate(this.contestInfo.beginTime)}}
@@ -24,59 +20,41 @@
           </el-card>
         </div>
       </el-tab-pane>
-      <el-tab-pane
-        label="题目列表"
-        name="2"
-        style="padding:0px;margin:0px;"
-      >
+      <el-tab-pane label="题目列表"
+                   name="2"
+                   style="padding:0px;margin:0px;">
         <!-- A~Z的按钮 -->
-        <el-button
-          v-for="item in ProblemList"
-          :key="item.problemId"
-          @click="switchProblem(item.problemId)"
-          type="info"
-          plain
-        >{{String.fromCharCode(item.problemOrder + 65)}}</el-button>
+        <el-button v-for="item in ProblemList"
+                   :key="item.problemId"
+                   @click="switchProblem(item.problemId)"
+                   type="info"
+                   plain>{{String.fromCharCode(item.problemOrder + 65)}}</el-button>
         <el-divider></el-divider>
-        <ContestSubmitComponent
-          v-if="this.showSubmit && this.ProblemList.length"
-          :readOnly="this.contestInfo.status!=='正在进行'"
-          :pid="selectedPid"
-          :cid="String(this.$route.query.cid)"
-          @toPane="switchTabPane"
-        ></ContestSubmitComponent>
+        <ContestSubmitComponent v-if="this.showSubmit && this.ProblemList.length"
+                                :readOnly="this.contestInfo.status!=='正在进行'"
+                                :pid="selectedPid"
+                                :cid="String(this.$route.query.cid)"
+                                @toPane="switchTabPane"></ContestSubmitComponent>
       </el-tab-pane>
-      <el-tab-pane
-        label="在线评测"
-        name="3"
-      >
-        <ContestStatusComponent
-          v-if="this.contestInfo.statusReadOut === 1"
-          :cid="this.contestId"
-          :contestInfo="this.contestInfo"
-        ></ContestStatusComponent>
-        <span
-          class="detail-red-font"
-          v-else
-        >本场比赛不允许查看评测记录</span>
+      <el-tab-pane label="在线评测"
+                   name="3">
+        <ContestStatusComponent v-if="this.contestInfo.statusReadOut === 1"
+                                :cid="this.contestId"
+                                :contestInfo="this.contestInfo"></ContestStatusComponent>
+        <span class="detail-red-font"
+              v-else>本场比赛不允许查看评测记录</span>
       </el-tab-pane>
-      <el-tab-pane
-        label="实时排名"
-        name="4"
-      >
+      <el-tab-pane label="实时排名"
+                   name="4">
         <!-- TODO: 滚版 -->
         <div v-if="this.contestInfo.showBorderList === 1">
 
         </div>
-        <span
-          class="detail-red-font"
-          v-else
-        >本场比赛不允许查看实时排名</span>
+        <span class="detail-red-font"
+              v-else>本场比赛不允许查看实时排名</span>
       </el-tab-pane>
-      <el-tab-pane
-        label="在线讨论"
-        name="5"
-      >
+      <el-tab-pane label="在线讨论"
+                   name="5">
         <!-- 在线聊天 -->
         <ContestOnlineDiscussComponent></ContestOnlineDiscussComponent>
       </el-tab-pane>
@@ -123,7 +101,7 @@ export default {
       params.append('contestId', this.contestId)
       params.append('username', this.$store.getters.getUsername)
       let dataContest = await this.$http
-        .get('/contest/info/get', params)
+        .get('/contest/info', params)
         .catch(() => {
         })
       this.contestInfo = dataContest.datas[0]
@@ -141,7 +119,7 @@ export default {
       let params = new URLSearchParams()
       params.append('contestId', this.contestId)
       let dataProblemList = await this.$http
-        .get('/contest/problem/list/get', params)
+        .get('/contest/problem/list', params)
         .catch(() => {
         })
       this.ProblemList = dataProblemList.datas[0]

@@ -5,42 +5,32 @@
       <el-row :gutter="0">
         <el-col :span="5">
           <div><span>评测结果: </span>
-            <el-tag
-              :type="this.switchResultColor(this.judgeStatus.result)"
-              size="medium"
-            >{{this.judgeStatus.result?this.judgeStatus.result:'-'}}</el-tag>
+            <el-tag :type="this.switchResultColor(this.judgeStatus.result)"
+                    size="medium">{{this.judgeStatus.result?this.judgeStatus.result:'-'}}</el-tag>
           </div>
         </el-col>
         <el-col :span="4">
           <div><span>评测ID: </span>
-            <el-tag
-              type="primary"
-              size="medium"
-            >{{this.judgeStatus.id?this.judgeStatus.id:'-'}}</el-tag>
+            <el-tag type="primary"
+                    size="medium">{{this.judgeStatus.id?this.judgeStatus.id:'-'}}</el-tag>
           </div>
         </el-col>
         <el-col :span="4">
           <div><span>题目ID: </span>
-            <el-tag
-              type="primary"
-              size="medium"
-            >{{this.judgeStatus.problemId?this.judgeStatus.problemId:'-'}}</el-tag>
+            <el-tag type="primary"
+                    size="medium">{{this.judgeStatus.problemId?this.judgeStatus.problemId:'-'}}</el-tag>
           </div>
         </el-col>
         <el-col :span="4">
           <div><span>编程语言: </span>
-            <el-tag
-              type="primary"
-              size="medium"
-            >{{this.judgeStatus.language?this.judgeStatus.language:'-'}}</el-tag>
+            <el-tag type="primary"
+                    size="medium">{{this.judgeStatus.language?this.judgeStatus.language:'-'}}</el-tag>
           </div>
         </el-col>
         <el-col :span="4">
           <div><span>提交人: </span>
-            <el-tag
-              type="primary"
-              size="medium"
-            >{{this.judgeStatus.nick?this.judgeStatus.nick:'-'}}</el-tag>
+            <el-tag type="primary"
+                    size="medium">{{this.judgeStatus.nick?this.judgeStatus.nick:'-'}}</el-tag>
           </div>
         </el-col>
       </el-row>
@@ -49,12 +39,10 @@
       <pre>{{this.judgeResult?this.judgeResult.info:'无'}}</pre>
     </el-card>
     <div class="code-box">
-      <aceEditor
-        class="code-editor"
-        :language="this.languge"
-        :readOnly="true"
-        :value="this.judgeStatus.code"
-      ></aceEditor>
+      <aceEditor class="code-editor"
+                 :language="this.languge"
+                 :readOnly="true"
+                 :value="this.judgeStatus.code"></aceEditor>
     </div>
   </div>
 </template>
@@ -89,7 +77,7 @@ export default {
       let pidTmp = this.$route.query.id
       params.append('judgeId', pidTmp)
       params.append('username', this.$store.getters.getUsername)
-      let dataStatus = await this.$http.get('/judge_result/info/get', params)
+      let dataStatus = await this.$http.get('/judge_result/info', params)
       this.judgeResult = dataStatus.datas[0]
       this.judgeStatus = dataStatus.datas[1]
     },

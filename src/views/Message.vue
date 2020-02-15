@@ -192,7 +192,7 @@ export default {
       params.append('pageNum', pagenum)
       params.append('pageSize', 10)
       let dataMessage = await this.$http
-        .get('/user_message/all/get', params)
+        .get('/user_message/all', params)
       let dataTempMessage = dataMessage.datas[0]
       this.Total = dataMessage.datas[1]
       if (typeof dataTempMessage !== 'undefined') {
@@ -225,7 +225,7 @@ export default {
       params.append('pageNum', pagenum)
       params.append('pageSize', 10)
       let dataUnReadMessage = await this.$http
-        .get('/user_message/unread/get', params)
+        .get('/user_message/unread', params)
         .catch(() => {
           this.logger.e('获取消息列表失败')
         })
@@ -256,7 +256,7 @@ export default {
       params.append('username', this.$store.getters.getUsername)
       params.append('id', id)
       let dataSetReaded = await this.$http
-        .post('/user_message/unread/set_read/post', params)
+        .post('/user_message/unread/set_read', params)
       if (dataSetReaded.code === 10000) {
         this.logger.i('设置 id: ' + id + ' 已读成功')
       } else {
@@ -284,7 +284,7 @@ export default {
       let params = new URLSearchParams()
       params.append('username', this.$store.getters.getUsername)
       let dataSetMsgAllRead = await this.$http
-        .post('/user_message/unread/set_all_read/post', params)
+        .post('/user_message/unread/set_all_read', params)
         .catch(() => {
           this.logger.e('请求失败')
         })

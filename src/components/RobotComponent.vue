@@ -138,7 +138,7 @@ export default {
           this.message = '欢迎来到<strong>一码当先在线编程系统</strong>，我是假机器人敢敢，我偶尔会冒泡说两句话哦。'
           break
         case 'Status':
-          this.message = '你所提交的每一道题都在这里有记录哦，包括在我们的网站上提交的<strong>其他网站题目</strong>'
+          this.message = '你和小伙伴们提交的每一道题都在这里有记录哦，包括在我们的网站上提交的<strong>其他网站题目</strong>'
           break
         case 'Contest':
           if (this.$route.query.kind === '0') {

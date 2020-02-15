@@ -253,7 +253,7 @@ export default {
     async getdata () {
       let params = new URLSearchParams()
       params.append('id', this.$route.query.id)
-      let dataMall = await this.$http.get('/mall/info/get', params).catch(() => {
+      let dataMall = await this.$http.get('/mall/info', params).catch(() => {
         this.$message({ message: '服务器繁忙，请稍后再试！', type: 'error' })
       })
       this.dataMallInfo = dataMall.datas[0]
@@ -274,9 +274,10 @@ export default {
       params.append('buyNum', number)
       params.append('goodsId', id)
       params.append('username', username)
-      let dataOrdel = await this.$http.post('/order/createOrder', params).catch(() => {
-        this.$message({ message: '服务器繁忙，请稍后再试！', type: 'error' })
-      })
+      let dataOrdel = await this.$http.post('/order/createOrder', params)
+        .catch(() => {
+          this.$message({ message: '服务器繁忙，请稍后再试！', type: 'error' })
+        })
       if (dataOrdel.code === 100) {
         this.$message({
           type: 'success',
@@ -567,7 +568,7 @@ export default {
 .shopcart {
   position: absolute;
   transition: 0.2s;
-  top: 20px;
+  top: 70px;
   right: 0px;
   width: 250px;
   height: 580px;

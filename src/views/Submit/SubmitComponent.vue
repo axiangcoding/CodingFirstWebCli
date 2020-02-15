@@ -1,3 +1,4 @@
+// FIXME: 本页面有严重BUG，需重做
 <template>
   <div class="submitinfo-body"
        v-loading="loading"
@@ -109,7 +110,7 @@
                        @click="fullEditor = true">全屏</el-button>
             <el-dialog :visible.sync="fullEditor"
                        custom-class="dialog-body"
-                       fullscreen="true">
+                       :fullscreen="true">
               <aceEditor class="full-code-editor"
                          :language="this.compileLanguage"
                          :readOnly="!this.$store.getters.getIsLogin"
@@ -175,7 +176,9 @@ export default {
       problemIsStar: false,
       code: '',
       // 题解内容
-      answerText: '# 第 ' + this.pid + ' 题题解\n ##\n ##\n ##\n::: hljs-right \n#### Editor by :  ' + this.$store.getters.getUsername + '\n:::',
+      answerText: '# 第 ' + this.pid +
+        ' 题题解\n ##\n ##\n ##\n::: hljs-right \n#### Editor by :  ' +
+        this.$store.getters.getUsername + '\n:::',
       fullEditor: false,
       compileLanguage: 'G++',
       languageType: [
@@ -196,7 +199,7 @@ export default {
           label: 'Python2'
         }
       ],
-      activeIndex: []
+      activeIndex: ['1']
     }
   },
   watch: {
@@ -205,10 +208,10 @@ export default {
     }
   },
   mounted () {
-    this.initEcharts()
+    // this.initEcharts()
     this.getProblem()
     if (!this.$store.getters.getIsLogin) {
-      this.activeIndex = []
+      // this.activeIndex = []
       this.$notify({
         title: '提示',
         message: '登录后才能作答哦',
@@ -250,8 +253,8 @@ export default {
           outputCase: ''
         }
       }
-      this.loadChartsSubmit()
-      this.loadChartsAcUser()
+      // this.loadChartsSubmit()
+      // this.loadChartsAcUser()
     },
     loadChartsSubmit () {
       let totalAc = this.dataProblemDetail.totalAc

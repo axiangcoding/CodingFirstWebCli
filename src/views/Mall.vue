@@ -3,44 +3,32 @@
   <div class="mall-body">
     <div class="carousel-body">
       <el-carousel>
-        <el-carousel-item
-          v-for="item in 4"
-          :key="item"
-        >
-          <el-image
-            class="picture"
-            :src="src"
-            :fits="fits"
-          ></el-image>
+        <el-carousel-item v-for="item in 4"
+                          :key="item">
+          <img class="picture"
+               :src="src" />
+          <!-- <el-image class="picture"
+                    :src="src"
+                    :fits="fits"></el-image> -->
         </el-carousel-item>
       </el-carousel>
     </div>
-    <el-col
-      :span="4"
-      v-for="item in dataMallInfo"
-      :key="item.id"
-      class="main-col"
-    >
-      <el-card
-        class="product-card"
-        shadow="hover"
-        :body-style="{ padding: '0px' }"
-      >
-        <div
-          class="product-box"
-          @click="toProductDetail(item.id)"
-        >
-          <el-image
-            :src="item.pictureUrl.split(';')[0]"
-            class="product-image"
-          ></el-image>
+    <el-col :span="4"
+            v-for="item in dataMallInfo"
+            :key="item.id"
+            class="main-col">
+      <el-card class="product-card"
+               shadow="hover"
+               :body-style="{ padding: '0px' }">
+        <div class="product-box"
+             @click="toProductDetail(item.id)">
+          <img class="product-image"
+               :src="item.pictureUrl.split(';')[0]" />
           <div>
             <font size="4">{{item.name}}</font>
             <br />
-            <font
-              size="5"
-              color="orange"
-            >{{item.cost}}</font>ACB
+            <font size="5"
+                  color="orange">{{item.cost}}</font>ACB
           </div>
         </div>
       </el-card>
@@ -66,7 +54,13 @@ export default {
       if (this.$store.getters.getIsLogin) {
         this.$router.push({ path: 'ProductDetail', query: { id: gid } })
       } else {
-        this.$message.warning('登录后才能查看详情哦！')
+        this.$notify({
+          title: '提示',
+          message: '登录后才能查看商城内容',
+          type: 'warning',
+          offset: 100,
+          duration: 3000
+        })
       }
     },
     async getMalldata () {
@@ -74,7 +68,7 @@ export default {
       params.append('pageNum', 1)
       // TODO: 暂时设置为100，显示100个商品
       params.append('pageSize', 100)
-      let dataMall = await this.$http.get('/mall/list/get', params)
+      let dataMall = await this.$http.get('/mall/list', params)
       if (dataMall.code === 10000) {
         this.dataMallInfo = dataMall.datas[0]
       } else {
@@ -88,7 +82,7 @@ export default {
 
 <style scoped>
 .mall-body {
-  width: 85%;
+  width: 90%;
   min-height: 800px;
   margin: auto;
   background-color: #fafafa;
@@ -99,7 +93,6 @@ export default {
 }
 
 .carousel-body {
-  width: 86%;
   margin: auto;
 }
 

@@ -166,7 +166,13 @@ export default {
       this.getBlockDetail(this.$route.query.id)
       this.getBlockProblems(this.currentPage)
     } else {
-      this.$message.warning('登录后查看！')
+      this.$notify({
+        title: '提示',
+        message: '登录后才能查看',
+        type: 'warning',
+        offset: 100,
+        duration: 3000
+      })
       this.loading = false
     }
   },
@@ -195,7 +201,7 @@ export default {
       let params = new URLSearchParams()
       params.append('blockId', blockId)
       params.append('username', this.$store.getters.getUsername)
-      let dataBlockDetail = await this.$http.get('/challenge_block/detail/get', params)
+      let dataBlockDetail = await this.$http.get('/challenge_block/detail', params)
       if (dataBlockDetail.code === 10000) {
         let dataBlockTemp = dataBlockDetail.datas[0]
         this.blockDetail.getScore = dataBlockTemp.getScore
@@ -233,7 +239,7 @@ export default {
       params.append('pageNum', this.currentPage)
       params.append('pageSize', this.pageSize)
       let dataBlockProblems = await this.$http
-        .get('/challenge_block/problem/get', params)
+        .get('/challenge_block/problem', params)
       if (dataBlockProblems.code === 10000) {
         this.tableData = dataBlockProblems.datas[0]
         this.totalCol = dataBlockProblems.datas[1]

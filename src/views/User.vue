@@ -137,7 +137,7 @@ export default {
     async getUserInfo (username) {
       let params = new URLSearchParams()
       params.append('username', username)
-      let dataUserInfo = await this.$http.get('/user/info/get', params)
+      let dataUserInfo = await this.$http.get('/user/info', params)
       this.userBaseInfo = dataUserInfo.datas[0]
       this.userCustomInfo = dataUserInfo.datas[1]
       this.userBaseInfo.totalSubmit = dataUserInfo.datas[2]
@@ -156,14 +156,14 @@ export default {
     async getRewardInfo (username) {
       let params = new URLSearchParams()
       params.append('username', username)
-      let dataAwardInfo = await this.$http.get('/user/award/get', params)
+      let dataAwardInfo = await this.$http.get('/user/award', params)
       this.rewardInfo = dataAwardInfo.datas[0]
       console.log(this.rewardInfo)
     },
     async getRadarData (username) {
       let params = new URLSearchParams()
       params.append('username', username)
-      let dataUserRadar = await this.$http.get('/problem/radar/get', params)
+      let dataUserRadar = await this.$http.get('/problem/radar', params)
       let tempRadarData = dataUserRadar.datas[0]
       for (let i = 0; i < tempRadarData.length; i++) {
         this.radar.push(tempRadarData[i].score)

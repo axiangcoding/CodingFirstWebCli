@@ -138,7 +138,7 @@ export default {
       let username = this.$store.getters.getUsername
       let params = new URLSearchParams()
       params.append('username', username)
-      let dataUnReadMsgCount = await this.$http.get('/user_message/unread/count/get', params)
+      let dataUnReadMsgCount = await this.$http.get('/user_message/unread/count', params)
       let unReadMsgCount = dataUnReadMsgCount.datas[0]
       this.$store.commit('setUnReadMsgCount', unReadMsgCount)
     },

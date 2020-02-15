@@ -88,7 +88,7 @@ export default {
       this.logger.p({ username: username })
       params.append('username', username)
       let dataGetBlocks = await this.$http
-        .get('/challenge_block/graph/get', params)
+        .get('/challenge_block/graph', params)
         .catch(() => {
           this.myChart.hideLoading()
         })
@@ -291,7 +291,7 @@ export default {
       let params = new URLSearchParams()
       params.append('blockId', blockId)
       let dataBlockCondition = await this.$http
-        .get('/challenge_block/condition/get', params)
+        .get('/challenge_block/condition', params)
         .catch(() => {
           this.$message({ message: '服务器繁忙，请稍后再试！', type: 'error' })
         })

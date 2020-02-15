@@ -2,15 +2,16 @@
   <div class="home-info-body">
     <el-card class="box-card">
       <div slot="header">
-        公告栏
+        <i class="el-icon-document"></i> 公告栏
       </div>
       <div v-html="message"></div>
     </el-card>
-    <el-card class="box-card">
+    <el-card v-show="this.$store.getters.getIsLogin"
+             class="box-card">
       <div slot="header">
-        题目推荐
+        <i class="el-icon-mic"></i> 题目推荐
       </div>
-      <div v-if="this.$store.getters.getIsLogin && loaded">
+      <div v-if="loaded">
         <span class="info-font">根据假机器人敢敢的预测，您可能会对以下题目感兴趣，要不要试试？</span>
         <br />
         <div v-for="item in recommendProblems"
@@ -29,18 +30,18 @@
     </el-card>
     <el-card class="box-card">
       <div slot="header">
-        热门题解
+        <i class="el-icon-hot-water"></i> 热门题解
       </div>
       <h1>还没开发</h1>
     </el-card>
     <el-card class="box-card">
       <div slot="header">
-        本站大数据</div>
+        <i class="el-icon-data-analysis"></i> 本站大数据</div>
       <div id="submit-charts"></div>
     </el-card>
     <el-card class="box-card">
       <div slot="header">
-        资源索引
+        <i class="el-icon-link"></i> 资源索引
       </div>
       <el-collapse id="download-file">
         <el-collapse-item name="1">
@@ -144,7 +145,7 @@ export default {
     async getInfo () {
       let params = new URLSearchParams()
       params.append('name', 'homePageNotify')
-      let dataNotify = await this.$http.get('/system/info/get', params)
+      let dataNotify = await this.$http.get('/system/info', params)
       if (dataNotify.code === 10000) {
         this.message = dataNotify.datas[0].value
       } else {
@@ -154,14 +155,14 @@ export default {
     async getRecommendProblems () {
       let params = new URLSearchParams()
       params.append('username', this.$store.getters.getUsername)
-      let dataRecommend = await this.$http.get('/problem/recommend/get', params)
+      let dataRecommend = await this.$http.get('/problem/recommend', params)
       this.recommendProblems = dataRecommend.datas[0]
       this.loaded = true
     },
     async getStatusCount () {
       let params = new URLSearchParams()
       params.append('days', this.days)
-      let dataStatusCount = await this.$http.get('/judge_status/count/get', params)
+      let dataStatusCount = await this.$http.get('/judge_status/count', params)
       this.statusCount = dataStatusCount.datas[0]
       this.loadEcharts()
     },

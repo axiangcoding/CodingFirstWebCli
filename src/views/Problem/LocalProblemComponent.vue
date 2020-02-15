@@ -36,7 +36,8 @@
                    :page-size="this.pageSize"></el-pagination>
     <el-table :data="this.tableData"
               v-loading="loading">
-      <el-table-column label="是否解决"
+      <el-table-column v-if="this.$store.getters.getIsLogin"
+                       label="是否解决"
                        min-width="20%">
         <template slot-scope="scope">
           <span :class="scope.row.isSolved==='✔'?'success-row':scope.row.isSolved==='？'?'warning-row':'error-row'">{{scope.row.isSolved}}</span>
@@ -47,7 +48,7 @@
                        min-width="20%"></el-table-column>
       <el-table-column prop="Title"
                        label="题目标题"
-                       min-width="80%">
+                       min-width="70%">
         <template slot-scope="scope">
           <el-link type="primary"
                    @click="toSubmit(scope.row.problemId)">{{scope.row.title}}</el-link>
@@ -128,7 +129,7 @@ export default {
       params.append('username', this.$store.getters.getUsername)
       params.append('isStar', this.myCollection)
       let dataProblemsByPage = await this.$http
-        .get('/problem/list/get', params)
+        .get('/problem/list', params)
         .catch(() => {
           this.loading = false
         })
@@ -153,7 +154,7 @@ export default {
     async getProblemTags () {
       let params = new URLSearchParams()
       let dataProblemTags = await this.$http
-        .get('/problem_tag/get', params)
+        .get('/problem_tag/all', params)
       let dataTempTags = dataProblemTags.datas[0]
       if (typeof dataTempTags === 'undefined') {
         return
@@ -217,10 +218,6 @@ export default {
 
 .search-button {
   float: left;
-}
-
-.el-pagination {
-  /* float: left; */
 }
 
 .bottom-pagination {

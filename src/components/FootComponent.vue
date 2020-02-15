@@ -44,7 +44,7 @@ export default {
     async getVersion () {
       let params = new URLSearchParams()
       params.append('name', 'version')
-      let dataVersion = await this.$http.get('/system/info/get', params)
+      let dataVersion = await this.$http.get('/system/info', params)
       this.version = dataVersion.datas[0].value
     }
   },

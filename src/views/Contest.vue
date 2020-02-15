@@ -4,121 +4,93 @@
     <el-card class="box-card">
       <div slot="header">比赛列表</div>
       <div class="contest-filter">
-        <el-row
-          type="flex"
-          :gutter="15"
-        >
+        <el-row type="flex"
+                :gutter="15">
           <el-col :span="5">
-            <el-input
-              v-model="searchName"
-              placeholder="请输入比赛名称"
-              size="mini"
-            >
-              <template slot="prepend">比赛名称</template>
+            <el-input v-model="searchName"
+                      placeholder="请输入比赛名称"
+                      size="mini">
+              <template slot="prepend">比赛名</template>
             </el-input>
           </el-col>
           <el-col :span="4">
-            <el-select
-              placeholder="请选择权限"
-              size="mini"
-              v-model="searchPermission"
-            >
-              <el-option
-                v-for="item in this.permissionType"
-                :class="switchPermissionClass(item.name)"
-                :key="item.id"
-                :value="item.id"
-                :label="item.name"
-              ></el-option>
+            <el-select placeholder="请选择权限"
+                       size="mini"
+                       v-model="searchPermission">
+              <el-option v-for="item in this.permissionType"
+                         :class="switchPermissionClass(item.name)"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name"></el-option>
             </el-select>
           </el-col>
           <el-col :span="4">
-            <el-select
-              v-model="searchStatus"
-              placeholder="请选择状态"
-              size="mini"
-            >
-              <el-option
-                v-for="item in this.statusType"
-                :class="switchStatusClass(item.name)"
-                :key="item.id"
-                :value="item.id"
-                :label="item.name"
-              ></el-option>
+            <el-select v-model="searchStatus"
+                       placeholder="请选择状态"
+                       size="mini">
+              <el-option v-for="item in this.statusType"
+                         :class="switchStatusClass(item.name)"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name"></el-option>
             </el-select>
           </el-col>
           <el-col :span="4">
-            <el-button
-              icon="el-icon-search"
-              type="primary"
-              size="mini"
-              @click="handleSelect()"
-            >筛选</el-button>
+            <el-button icon="el-icon-search"
+                       type="primary"
+                       size="mini"
+                       @click="handleSelect()">筛选</el-button>
           </el-col>
         </el-row>
       </div>
-      <el-pagination
-        layout="total, prev, pager, next, jumper"
-        :current-page="currentPage"
-        @current-change="swithPage"
-        :total="currentTotal"
-        :page-size="this.pageSize"
-      ></el-pagination>
-      <el-table
-        :data="tableData"
-        v-loading="loading"
-      >
-        <el-table-column
-          prop="id"
-          label="#"
-          min-width="8%"
-        ></el-table-column>
-        <el-table-column
-          label="类型"
-          min-width="10%"
-        >
+      <el-pagination layout="total, prev, pager, next, jumper"
+                     :current-page="currentPage"
+                     @current-change="swithPage"
+                     :total="currentTotal"
+                     :page-size="this.pageSize"></el-pagination>
+      <el-table :data="tableData"
+                v-loading="loading">
+        <el-table-column prop="id"
+                         label="#"
+                         min-width="8%"></el-table-column>
+        <el-table-column label="类型"
+                         min-width="10%">
           <template slot-scope="scope">
             <div :class="switchKindClass(scope.row.kind)">{{scope.row.kind}}</div>
           </template>
         </el-table-column>
-        <el-table-column
-          label="比赛名称"
-          min-width="30%"
-        >
+        <el-table-column label="比赛名称"
+                         min-width="30%">
           <template slot-scope="scope">
-            <el-link
-              type="primary"
-              @click="toContestInfo(scope.row)"
-            >{{scope.row.title}}</el-link>
+            <el-link type="primary"
+                     @click="toContestInfo(scope.row)">{{scope.row.title}}</el-link>
           </template>
         </el-table-column>
-        <el-table-column
-          label="开始时间"
-          min-width="15%"
-        ><template slot-scope="scope">{{new Date(scope.row.beginTime).toLocaleString('chinese', { hour12: false })}}</template>
+        <el-table-column label="开始时间"
+                         min-width="15%"><template slot-scope="scope">{{new Date(scope.row.beginTime).toLocaleString('chinese', { hour12: false })}}</template>
         </el-table-column>
-        <el-table-column
-          label="结束时间"
-          min-width="15%"
-        ><template slot-scope="scope">{{new Date(scope.row.endTime).toLocaleString('chinese', { hour12: false })}}</template></el-table-column>
-        <el-table-column
-          label="权限"
-          min-width="10%"
-        >
+        <el-table-column label="结束时间"
+                         min-width="15%"><template slot-scope="scope">{{new Date(scope.row.endTime).toLocaleString('chinese', { hour12: false })}}</template></el-table-column>
+        <el-table-column label="权限"
+                         min-width="10%">
           <template slot-scope="scope">
             <div :class="switchPermissionClass(scope.row.permission)">{{scope.row.permission}}</div>
           </template>
         </el-table-column>
-        <el-table-column
-          label="状态"
-          min-width="10%"
-        >
+        <el-table-column label="状态"
+                         min-width="10%">
           <template slot-scope="scope">
             <div :class="switchStatusClass(scope.row.status)">{{scope.row.status}}</div>
           </template>
         </el-table-column>
 
       </el-table>
+      <el-pagination class="bottom-pagination"
+                     layout="total, prev, pager, next, jumper"
+                     :current-page="currentPage"
+                     @current-change="swithPage"
+                     :total="currentTotal"
+                     :page-size="this.pageSize"></el-pagination>
     </el-card>
   </div>
 </template>
@@ -187,7 +159,7 @@ export default {
       params.append('searchStatus', this.searchStatus)
       // params.append('ctype', xxx)
       // params.append('status',xxx)
-      let dataAllContest = await this.$http.get('/contest/list/get', params)
+      let dataAllContest = await this.$http.get('/contest/list', params)
       this.tableData = dataAllContest.datas[0]
       this.currentTotal = dataAllContest.datas[1]
       this.loading = false
@@ -268,7 +240,13 @@ export default {
     async toContestInfo (row) {
       // console.log(row.id)
       if (!this.$store.getters.getIsLogin) {
-        this.$message.warning('登录后才能查看！')
+        this.$notify({
+          title: '提示',
+          message: '登录后才能查看比赛内容',
+          type: 'warning',
+          offset: 100,
+          duration: 3000
+        })
       } else {
         // FIXME: 这里暂时还没详细判断限制条件，暂时注释掉，直接进入
         if (row.status === 1) {
@@ -361,20 +339,13 @@ export default {
 <style scoped>
 .contest-body {
   width: 90%;
-
   margin: auto;
-  margin-bottom: 10%;
-  font-family: 微软雅黑, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .box-card {
   width: 90%;
   height: 100%;
-  min-height: 500px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
+  margin: auto;
 }
 
 .contest-head {
@@ -440,11 +411,8 @@ export default {
   font-weight: bold;
 }
 
-/* .input-with-select .el-input-group__prepend {
-  background-color: #fff;
-} */
-
-/* .el-input {
-  width: 120px;
-} */
+.bottom-pagination {
+  float: right;
+  margin-bottom: 10px;
+}
 </style>

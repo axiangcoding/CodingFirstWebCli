@@ -1,21 +1,22 @@
 <template>
   <div>
-    <el-card id="topborder"
-             v-show="this.$store.getters.getIsLogin">
+    <el-card id="topborder">
       <div slot="header">
         我的
       </div>
-      <div>
+      <div v-if="this.$store.getters.getIsLogin">
         亲爱的 {{this.$store.getters.getUsername}}：
         <br />您有
         <el-link type="danger">{{this.$store.getters.getUnReadMsgCount}}</el-link>
         条站内消息未读，今天你尝试了{{todayTry}}题，AC了 {{todayAc}} 题，真是美好的一天呢
       </div>
-
+      <div v-else>
+        还没登录？赶快<a href="/login">登录</a>解锁更多内容！
+      </div>
     </el-card>
     <el-card id="topborder">
       <div slot="header">
-        <span class="title-text">积分榜 Top10</span>
+        <span class="title-text"><i class="el-icon-medal-1"></i> 积分榜</span>
         <el-link type="info"
                  class="elcard-showmore-link">查看全部</el-link>
       </div>
@@ -42,7 +43,7 @@
     </el-card>
     <el-card id="topborder">
       <div slot="header">
-        <span class="title-text">AC题数榜 Top10</span>
+        <span class="title-text"><i class="el-icon-medal-1"></i> AC榜</span>
         <el-link type="info"
                  class="elcard-showmore-link">查看全部</el-link>
       </div>
@@ -67,7 +68,7 @@
     </el-card>
     <el-card id="topborder">
       <div slot="header">
-        <span class="title-text">AC币富豪榜 Top10</span>
+        <span class="title-text"><i class="el-icon-medal-1"></i> ACB富豪榜</span>
         <el-link type="info"
                  class="elcard-showmore-link">查看全部</el-link>
       </div>
@@ -121,17 +122,27 @@ export default {
       let params = new URLSearchParams()
       params.append('pageNum', 1)
       params.append('pageSize', 10)
-      let dataRank = await this.$http.get('/border/mini/get', params)
+      let dataRank = await this.$http.get('/border/mini', params)
       this.ratingTop = dataRank.datas[0]
       this.acTop = dataRank.datas[1]
       this.acbTop = dataRank.datas[2]
       this.activeTop = dataRank.datas[3]
     },
     toUser (username) {
-      this.$router.push({
-        path: '/User',
-        query: { username: username }
-      })
+      if (this.$store.getters.getIsLogin) {
+        this.$router.push({
+          path: '/User',
+          query: { username: username }
+        })
+      } else {
+        this.$notify({
+          title: '提示',
+          message: '登录后才能查看这个用户的主页哦',
+          type: 'warning',
+          offset: 100,
+          duration: 3000
+        })
+      }
     }
 
   }

@@ -2,8 +2,8 @@
   <div class="problem-body">
     <el-card class="box-card">
       <div slot="header">
-        <div v-if="this.$route.name === 'LocalProblem'">本地题库</div>
-        <div v-else>Virtual Judge题库</div>
+        <div v-if="this.$route.name === 'LocalProblem'"><i class="el-icon-menu"></i> 本地题库</div>
+        <div v-else><i class="el-icon-menu"></i> Virtual Judge题库</div>
       </div>
 
       <LocalProblemComponent v-if="this.$route.name === 'LocalProblem'"></LocalProblemComponent>
@@ -47,7 +47,6 @@ export default {
   padding-top: 0;
   margin: 0;
   margin-bottom: 20px;
-  font-family: 微软雅黑, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .box-card {

@@ -9,8 +9,8 @@
                 :events="this.clockInDateArr"></Calendar>
     </el-card>
     <div class="list-box">
-      <font color="blue">{{username}}</font> 的签到记录
-      <el-card :body-style="{ padding: '0px' }">
+      <!-- 你的签到记录 -->
+      <el-card>
         <el-pagination style="float:left"
                        layout="prev, pager, next"
                        :total="tableData.length"
@@ -19,9 +19,6 @@
                        @current-change="handleCurrentChange"></el-pagination>
         <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   max-height="600">
-          <el-table-column prop="username"
-                           label="用户名"
-                           min-width="20%"></el-table-column>
           <el-table-column prop="time"
                            label="签到时间"
                            min-width="25%"></el-table-column>
@@ -85,7 +82,7 @@ export default {
       params.append('pageNum', 1)
       params.append('pageSize', 40)
       let dataGetClockInList = await this.$http
-        .get('/check_in/list/get', params)
+        .get('/check_in/list', params)
       let dataClockIn = dataGetClockInList.datas[0]
       for (let i = 0; i < dataClockIn.length; i++) {
         let time = dataClockIn[i].checkTime
@@ -122,13 +119,13 @@ export default {
 
 <style  scoped>
 .clockin-body {
-  width: 80%;
+  width: 90%;
   min-height: 600px;
   margin: auto;
 }
 
 .calendar-card {
-  width: 45%;
+  width: 48%;
   float: left;
   min-height: 400px;
 }

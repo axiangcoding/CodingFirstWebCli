@@ -137,7 +137,7 @@ export default {
       params.append('title', this.searchTitle)
       params.append('source', this.searchResource)
       let dataProblemsByPage = await this.$http
-        .get('/problem/vj/list/', params)
+        .get('/problem/vj/list', params)
         .catch(() => {
           this.loading = false
         })
