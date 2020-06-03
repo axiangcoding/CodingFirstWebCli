@@ -40,7 +40,7 @@ var http = {
         url: url,
         params: params,
         headers: {
-          auth: store.default.getters.getToken
+          token: store.default.getters.getToken
         }
       })
         .then(response => {
@@ -63,7 +63,7 @@ var http = {
         // 放在请求体内
         data: params,
         headers: {
-          auth: store.default.getters.getToken
+          token: store.default.getters.getToken
         }
       })
         .then(response => {
@@ -81,7 +81,7 @@ var http = {
         url: url,
         data: data,
         headers: {
-          'auth': store.default.getters.getToken,
+          'token': store.default.getters.getToken,
           'Content-Type': 'multipart/form-data'
         }
       })

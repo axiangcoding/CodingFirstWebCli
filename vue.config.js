@@ -3,10 +3,10 @@ const CompressionPlugin = require('compression-webpack-plugin')
 module.exports = {
   publicPath: '/',
   devServer: {
-    port: 8887
+    port: 8888
   },
   productionSourceMap: true,
-  configureWebpack: config => {
+  configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'prod') {
       config.plugins.push(
         new CompressionPlugin({
@@ -17,9 +17,9 @@ module.exports = {
           minRatio: 0.8
         })
       )
-      config['externals'] = { 'echarts': 'echarts' }
+      config['externals'] = { echarts: 'echarts' }
     } else {
-      config['externals'] = { 'echarts': 'echarts' }
+      config['externals'] = { echarts: 'echarts' }
     }
   }
 }
